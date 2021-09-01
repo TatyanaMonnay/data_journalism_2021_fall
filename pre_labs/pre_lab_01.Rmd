@@ -34,6 +34,9 @@ There is no code to run from Chapter 1.
 
 ### Task 1: The console
 **Task** In the console (look below), type 2+2 and hit enter. What does it return? Type your answer below.
+
+(2+2)
+
 **Answer:**
 
 ### Task 2: Variables
@@ -127,7 +130,7 @@ ppp_maryland_loans %>%
   )
 ```
 How many loans does Anne Arundel County have?  Put your answer in the space below.
-**Answer**
+**Answer** 17336
 
 ### Task 7
 **Task** Run the following codeblock to group the ppp_maryland_loans dataframe by the county for each loan, count the number of loans in that group, and then sort so the county with the highest number of loans is listed first.
@@ -140,7 +143,7 @@ ppp_maryland_loans %>%
   arrange(desc(count_loans))
 ```
 Which county has the most loans?  Put your answer in the space below.
-**Answer**
+**Answer** Montgomery 
 
 ### Task 8
 **Task** Run the following codeblock to group the ppp_maryland_loans dataframe by county and race, then count the number of loans in that group, and then sort from A-Z by county and then by race.
