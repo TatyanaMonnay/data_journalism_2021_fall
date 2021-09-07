@@ -66,9 +66,9 @@ wv_ppp_loans %>%
 +     ) %>% 
 +     arrange(desc(count_loans))
 ```
-**Q3** Which West Virginia county got the fewest loans? How many? Doddridge county received the fewest loans for a total of 43. 
+**Q3** Which West Virginia county got the fewest loans?  How many?
 
-**A3** [write your answer here]
+**A3** [write your answer here]  Doddridge county received the fewest loans for a total of 43.
 
 ```{r}
 # Write the code to produce your answer here
@@ -79,11 +79,11 @@ wv_ppp_loans %>%
 +     )
 ```
 **Q4** What's your best educated guess to explain why the county identified in question 2 had a lot of loans and why the county identified in question 3 had only a few loans? Hint: you won't find the answer in the data, you'll need to do some quick web research. You do not need to write any code for this question, so no codeblock is provided.  
-**A4** [write your answer here]
+**A4** [write your answer here] Kanawha county is the larrgest county in West Virginia, which could expalin why it received the most loans in the state. 
 
 
 **Q5** What West Virginia business got the state's largest PPP loan? How much was it for? What does the business do? How many jobs did the loan retain, according to the data?
-**A5** [write your answer here] Greenbriar Hotel Corp received the most loans. The corporation received $8,912,202. The loan retained 500 jobs and the business is a luxury resort in West Virginia.  
+**A5** [write your answer here] Greenbrier Hotel Corp received the most loans. The corporation received $8,912,202. The loan retained 500 jobs and the business is a luxury resort in West Virginia.  
 
 ```{r}
 # Write the code to produce your answer here
