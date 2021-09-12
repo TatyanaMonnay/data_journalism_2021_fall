@@ -57,6 +57,11 @@ west_virginia_ppp %>%
   mutate(amount 
   )
 
+west_virginia_ppp %>%
++ select(loan_number, amount, payroll_proceed) %>%
++ mutate(
++ percent_payroll = amount/10,000
++ )
 
 ```
 
@@ -75,7 +80,7 @@ west_virginia_ppp %>%
 ```
 
 **Q3** How would you describe the top 10 list of those lenders? What do they have in common or not? (You may want to look up some of the top ones.)
-**A3** [write your answer here]
+**A3** [write your answer here] The top 10 business are all in the financial, banking industry. 
 
 **Q4** Which month in 2021 had the most loans approved?
 **A4** [write your answer here] March had the most loans approved in 2021. 
