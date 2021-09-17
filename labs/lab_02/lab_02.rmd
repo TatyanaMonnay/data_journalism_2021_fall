@@ -57,6 +57,8 @@ west_virginia_ppp %>%
   mutate(amount 
   )
 
+OR
+
 west_virginia_ppp %>%
 + select(loan_number, amount, payroll_proceed) %>%
 + mutate(
