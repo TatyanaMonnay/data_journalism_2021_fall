@@ -50,7 +50,7 @@ cleaned_wv_ppp_loans %>%
   summarise(project_county_name)
 
 cleaned_wv_ppp_loans <- wv_ppp_loans %>%
-+ clean_names() %>%
++ clean_names() %>
 + mutate(city = str_to_title(city))
 
 > cleaned_wv_ppp_loans %>% 
