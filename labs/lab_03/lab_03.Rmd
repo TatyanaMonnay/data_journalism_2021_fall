@@ -18,7 +18,7 @@ options(scipen=999)
 library(tidyverse)
 
 # Load janitor here
-library(janitor)
+
 ```
 
 ## Load data
@@ -64,6 +64,9 @@ cleaned_wv_ppp_loans %>%
   summarise(count=n())%>%
   arrange(desc(count))
 
+> wv_with_in_out <- cleaned_wv_ppp_loans %>%
++ mutate(in_out = case_when(project_county_name == 'KANAWHA' ~ "IN", project_county_name != 'KANAWHA' ~ "OUT"))
+
 
 # Write your code in this codeblock.
 
@@ -81,25 +84,36 @@ Write up a short paragraph that also answers these questions:
 * How much of that loan was forgiven?
 * Which number is bigger, the loan amount or the forgiveness amount? Can you explain the discrepancy?
 
-A2: The zip with the most loan recipients is 26003
+A2: The zip with the most loan recipients is 25301 and is located in Charleston. Greenbriar Hotel Corp. received the most with $8,912,202. 
 
 ```{r}
 
+cleaned_wv_ppp_loans <- wv_ppp_loans %>%
+  mutate(zip = str_sub(zip, start=1L, end=5L)) 
 
+ 
 
-cleaned_wv_ppp_loans %>% 
-  group_by(name) %>%
-  summarise(count=n()) %>%
-  arrange(desc(count))
+cleaned_wv_ppp_loans %>%
+  group_by(zip) %>%
+  summarise(total_loans_amount = sum(amount)) %>%
+  arrange(desc(total_loans_amount))
+
+ 
+
+cleaned_wv_ppp_loans %>%
+  group_by(zip,name) %>%
+  summarise(total_loans_amount = sum(amount)) %>%
+  arrange(desc(total_loans_amount))
+
 
 
 ```
 
 Q3: Five business entities owned by the spouse of a member of West Virginia's U.S. House delegation got PPP loans. Write up a paragraph that answers the following questions.   
 
-  * What are the businesses' names?
-  * What do the businesses do?
-  * How much money did the five businesses receive in total?
+  * What are the businesses' names? 
+  * What do the businesses do? 
+  *How much money did the five businesses receive in total?
   * What percentage of the total loan amount have been forgiven?
   * How did the U.S. House member vote on the legislation initially author zing the PPP loan program.
 
@@ -108,7 +122,7 @@ Feel free to add any interesting "color" (little interesting details) you find i
 Some hints to help you answer this question:
 
 * West Virginia's three U.S. House members are listed [here](https://www.govtrack.us/congress/members/WV#representatives)
-* To find businesses they or their families own, you can search for financial disclosure forms for U.S. House members [here](https://disclosures-clerk.house.gov/PublicDisclosure/FinancialDisclosure#Search).
+* To find businesses they or their families own, you can search for financial disclosure forms for U.S. House members [here](https://disclosures-clerk.house.gov/PublicDisclosure/FinancialDisclosure#Search). 
   * To speed things up, here are direct links to the three U.S. House members most recent financial disclosures, which I found by searching the site linked above.
   * [Rep. 1](https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2020/10042042.pdf)
   * [Rep. 2](https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2020/10040330.pdf)
@@ -116,12 +130,16 @@ Some hints to help you answer this question:
 * When you examine the disclosure forms, there may be lots of stock sales and retirement accounts mixed in.  Ignore those. In the table in the disclosure forms, look for "Partnership" or "C-Corp" in the column named "Income Type"
 * This is a link to details on passage of the [CARES ACT](https://www.congress.gov/bill/116th-congress/house-bill/748). You can find a link to how the House voted by clicking on a link from [this page](https://www.congress.gov/bill/116th-congress/house-bill/748/actions).
 
-A3:
+A3: The businesses include Mining Motors, DUTCH MILLER OF CHARLESTON, INC, DUTCH MILLER OF CHARLOTTE, INC, DUTCH MILLER SUBARU, INC, and DUTCH MILLER CHEVROLET, INC. The companies are involved in the automobile industry and sell cars. Rep. Miller voted yes. I wasn't able to create the dataframes so I searched the pdf and cross referenced with the data. 
+
+
 
 ```{r}
 
 # Hint
 # First, create a dataframe that only has loans to those five companies
+
+
 # Second, use that newly created dataframe to calculate total loan amount and percentage forgiven for those companies
 
 ```
