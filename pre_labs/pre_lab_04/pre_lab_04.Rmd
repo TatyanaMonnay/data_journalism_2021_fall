@@ -99,7 +99,7 @@ maryland_zcta <- read_csv('data/maryland_zcta.csv')
 
 ### Task 9: Join ZCTA to PPP Data
 **Task** Join the ZCTA data to the our PPP & NAICS data. What's the error message you get? What do you think it means?
-**Answer**
+**Answer** The error says "Can't join on `x$zip` x `y$zip` because of incompatible types. ℹ `x$zip` is of type <character>>. ℹ `y$zip` is of type <double>>." I think it's because the values are different types and R can't mesh them together. 
 
 ```{r}
 # join on zip - but there's a problem
