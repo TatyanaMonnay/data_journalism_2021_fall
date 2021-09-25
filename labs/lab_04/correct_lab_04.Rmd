@@ -170,7 +170,7 @@ maryland_ppp_with_naics_and_demographics %>%
 
 
 **Q6** Find any Maryland zip codes that have loans where the PPP data lists the applicants as being Asian but where the zip code does not appear to have Asian population in the ZCTA data? What do you think is going on here?
-**A6** [write your answer here]
+**A6** [write your answer here] Not sure how to answer this question! Created a function to count the amount of loans in zip codes where the recipient was labeled as Asian. 
 
 ```{r}
 # Write the code to produce your answer here
