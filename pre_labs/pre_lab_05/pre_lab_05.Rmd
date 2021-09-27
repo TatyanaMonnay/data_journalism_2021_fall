@@ -67,7 +67,7 @@ md_loans %>%
 
 ### Task 5: Use refinr to clean the city_clean field. 
 **Task** Run the following code to make a copy of the city field called city_clean, then use the `key_collision_merge` function from refinr to attempt to standarize similar values. Store it as a new object called clean_md_loans.  Click the black arrow on the table to examine the city and city_clean columns.  Looking at the results on the first page only (first 10 rows), name two changes the refinr package made, by comparing city to city_clean.
-**Answer** One change that happened is that cities in the original column that were all uppercase changed to regular uppercase on the first letter and lowercase in the rest of the word. Another thing is TKTKTKTK. 
+**Answer** One change that happened is that cities in the original column that were all uppercase changed to regular uppercase on the first letter and lowercase in the rest of the word. Another thing is the table is expanded to include more columns.  
 
 ```{r}
 cleaned_md_loans <- md_loans %>%
@@ -80,7 +80,7 @@ cleaned_md_loans
 
 ### Task 6: Filter cleaned_md_loans to examine cities that start with A 
 **Task** Run the following code to group by city_clean and city, then filter for cities that start with A. Name three changes the refinr function made.  
-**Answer**
+**Answer** This new change includes the count of loans. This new change also excludes other column to just include city_clean, city and count. Another change is that the names of the city_clean and city columns are in alphabetical order. 
 
 ```{r}
 cleaned_md_loans %>%
@@ -93,7 +93,7 @@ cleaned_md_loans %>%
 ```
 ### Task 7: Use a different refinr method to clean the city_clean field. 
 **Task** Run the following code to use the n_gram_merge() function to clean the data, then group by city_clean and city to examine cities that start with A. Look at the differences. Does the changes it made vary substantially from the previous use of key_collision_merge?
-**Answer**
+**Answer** I don't see much of a difference in the city names or the count or the order of each. 
 
 ```{r}
 cleaned_md_loans <- md_loans %>%
