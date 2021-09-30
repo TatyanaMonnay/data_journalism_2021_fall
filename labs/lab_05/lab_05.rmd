@@ -29,6 +29,16 @@ You'll need to load two packages for this: the tidyverse and janitor.
 # Turn off scientific notation
 options(scipen=999)
 
+# Load the tidyverse here
+library(tidyverse)
+
+# Load janitor here
+library(janitor)
+
+# for reading excel files
+library(readxl) 
+
+
 ```
 
 ## Load Data
@@ -41,7 +51,31 @@ You'll need to load three data sets for this:
 
 All three data sets are in the data folder.  Write code to load the three in the codeblock below.
 
+```{r}
+
+naics_code <- read_csv('/Users/tatyanamonnay/Desktop/data_journalism_2021_fall/labs/lab_05/naics_codes.csv')
+
+wv_population <- read_csv('/Users/tatyanamonnay/Desktop/data_journalism_2021_fall/labs/lab_05/wv_population_county.csv')
+
+zip_loans <- read_csv('/Users/tatyanamonnay/Desktop/data_journalism_2021_fall/labs/lab_05/zip_25401_loan_sample.csv')
+
+
+```
+
+
 **Task** Create a codeblock below this task, then read the data sets in in and assign them to appropriate variable names. There's a fourth data set you'll use in this lab, too, of selected loans in ZIP Code 25401. But there's no need to load it now.
+
+```{r}
+naics_code <- read_csv('/Users/tatyanamonnay/Desktop/data_journalism_2021_fall/labs/lab_05/naics_codes.csv')
+
+wv_population <- read_csv('/Users/tatyanamonnay/Desktop/data_journalism_2021_fall/labs/lab_05/wv_population_county.csv')
+
+zip_loans <- read_csv('/Users/tatyanamonnay/Desktop/data_journalism_2021_fall/labs/lab_05/zip_25401_loan_sample.csv')
+
+cleaned_zip_loans <- read_csv('/Users/tatyanamonnay/Desktop/data_journalism_2021_fall/labs/lab_05/cleaned_zip_25401_loan_sample-csv.csv')
+
+```
+
 
 ## Answer questions
 
@@ -62,9 +96,24 @@ Then answer these questions:
 * How many loans are there at that street address?
 * What are the names of the businesses at that address?
 
-**A1.**
+**A1.**  126 E Burke St received the most loans. There were 3 loans at this street address. It's associated businesses are ABRAHAM ASHTON, BRIX27, LLC, DREW HOLDINGS LLC, HUB CO-OP LLC and RONIN PROPERTIES LLC. 
 
 ```{r}
+
+cleaned_zip_loans %>% 
+  group_by(address) %>%
+  summarise(count=n()) %>%
+  arrange(desc(count))
+
+cleaned_zip_loans %>%
+  filter(address== '126 E Burke St') %>%
+  group_by(name) %>%
+  summarise(count=n()) %>%
+  arrange(desc(count))
+
+
+
+
 
 ```
 
@@ -74,7 +123,7 @@ Google the street address.  Google the business names and search for their corpo
 
 Based on your research, does it seem suspicious that this collection of businesses all got loans using the same address? Why or why not. Use specific facts identified in your research to support your position. 
 
-**A2.**
+**A2.** It seems that the businesses are affiliated with the same group of people such as Abraham Ashton so it's not super suspicious that they all got loans granted, but it is strange that these businesses are all located in the same address unless this is a a broader office space utilized by these businesses. 
 
 **Q3.** Start by using the West Virginia slice of the PPP loan data that you loaded at the start of the lab to create a subset of PPP loans in West Virginia's second largest county (which you can find in wv_population_county). And then use that table you created to answer the following questions:
 
@@ -85,9 +134,39 @@ Requirement: you MUST export a dataframe of PPP loans from R Studio at some poin
 
 Guidance: there are a lot of steps you'll need to take to answer this question. You may or may not find it helpful to write out in English what you plan to do step-by-step before you start writing code.   
 
-**A3.**
+**A3.** The city with the highest number of loans was Martinsburg. 
 
 ```{r}
+
+
+berkeley_loans <- read_csv('/Users/tatyanamonnay/Desktop/data_journalism_2021_fall/labs/lab_05/cleaned_city_ppp_loans.csv')
+
+berkeley_loans %>%
+  group_by(city) %>%
+  summarise(count =n()) %>%
+  arrange(desc(count))
+                            
+berkeley_loans %>%
+  filter(county== 'Berkeley') %>%
+  group_by(title) %>%
+  summarise(count =n()) %>%
+  arrange(desc(count)) 
+                  
+berkeley_loans %>% left_join(naics_code, by='naics_code') 
+
+
+berkeley_loans %>%
+  group_by(city) %>%
+  summarise(count =n()) %>%
+  arrange(desc(count))
+
+
+berkeley_loans %>%
+  filter(city== 'Martinsburg') %>%
+  group_by(title) %>%
+  summarise(count =n()) %>%
+  arrange(desc(count))
+  
 
 ```
 
