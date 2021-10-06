@@ -54,6 +54,10 @@ Let's load it into R, and in doing so we'll skip the first two rows and add our 
 
 ```{r}
 # Write the code to load the CSV file here
+
+international_migration <-read_csv("tabula-md-statistical-handbook.csv" , skip=1, col_names=c("state_jurisdiction", "July10_July11","July11_July12", "July12_July13","July13_July14", "July14_July15", "July15_July16", "July16_July17", "July17_July18", "July18_July19", "July10_July19"))
+
+
 ```
 
 Add a column for the type of migration ("international") and populate it:
@@ -62,6 +66,14 @@ Add a column for the type of migration ("international") and populate it:
 
 ```{r}
 # Write the code to add the column here
+
+
+international_migration <- international_migration %>%
+  mutate(
+    migration_type = "international" 
+  )
+
+
 ```
 
 ## Answer questions
@@ -72,21 +84,32 @@ Add a column for the type of migration ("international") and populate it:
 ```{r}
 # Write the code to produce your answer here
 
+
+international_migration <- international_migration %>%
+  mutate(
+    percent_total = (July10_July19/198996) *100
+  )
+
 ```
 
 **Q2** Write a sentence or two that describes the data you produced in A1. Try to convey the most important idea.
-**A2** [write your answer here]
+**A2** [write your answer here] The suburban Washington area, which includes Baltimore, Montgomery and Prince George's counties, have seen the highest levels of international migration. Baltimore City was also in the top for migration levels, which is telling about the regions' changing socio-economic landscape. 
 
 **Q3** Which region & jurisdiction had the biggest percentage change for international migration between July 2018 and July 2017? The formula for percentage change is easy to remember: (New-Old)/Old.
-**A3** [write your answer here]
+**A3** [write your answer here] Kent had the biggest percentage change. 
 
 ```{r}
 # Write the code to produce your answer here
 
+international_migration %>%
+  group_by(state_jurisdiction) %>%
+  summarise(percent_change =sum((July17_July18-July16_July17)/July16_July17) *100) %>%
+  arrange(desc(percent_change))
+
 ```
 
 **Q4** What's your best guess as to why these declines occurred, and in those area in particular?
-**A4** [write your answer here]
+**A4** [write your answer here] I think it makes sense that the urban, industrial areas of MD grew in population since there are more resources (jobs, healthcare, stable internet, etc) and migration to rural areas that can lack access to reliable  modern-day resources. 
 
 
 ## Back to Tabula
@@ -103,6 +126,8 @@ Let's load it into R, and in doing so we'll skip the first two rows and add our 
 
 ```{r}
 # Write the code to load the CSV file here
+
+domestic_migration <- read_csv("tabula-md-statistical-handbook-domestic.csv", , skip=1, col_names=c("state_jurisdiction", "July10_July11","July11_July12", "July12_July13","July13_July14", "July14_July15", "July15_July16", "July16_July17", "July17_July18", "July18_July19", "July10_July19"))
 ```
 
 Add a column for the type of migration ("domestic") and populate it:
@@ -111,24 +136,39 @@ Add a column for the type of migration ("domestic") and populate it:
 
 ```{r}
 # Write the code to add the column here
+
+domestic_migration <- domestic_migration %>%
+  mutate(
+    migration_type ="domestic"
+  )
+
 ```
 
 ## Answer questions
 **Q5** Which Maryland individual jurisdiction saw the largest net decrease in domestic migration overall?
-**A5** [write your answer here]
+**A5** [write your answer here] The suburban Washington Regioon saw the largest net decrease. Within this region, Balitmore city saw the highest net decrease. 
 
 ```{r}
 # Write the code to produce your answer here
 
+domestic_migration %>%
+  arrange
 ```
 
 **Q6** How many regions & jurisdictions had net positive migration for July 2017, July 2018 and July 2019 (not just individually but all three together)?
-**A6** [write your answer here]
+**A6** [write your answer here] Southern Maryland Region which includes Howard and Frederick counties and Upper Eastern Shore Region	which includes Calvert, St. Mary's, Queen Anne's, Worcester, Harford, Charles and Anne Arundel counties. 
 
 ```{r}
 # Write the code to produce your answer here
+
+domestic_migration %>% 
+  filter(July16_July17 > 0, July17_July18 > 0, July18_July19 > 0) %>%
+  group_by(state_jurisdiction)
+  
 
 ```
 
 **Q7** How would you describe this data? Is there a county or region that stands out, and why?
 **A7** [write your answer here]
+
+Baltimore City and Baltimore County stick out the most, which makes sense because they are basically the same place but just sightly different variations of each other. The fact that there are two Baltimore's that people can choose to move to increases its prevalence in the data. 
