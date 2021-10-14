@@ -1,0 +1,141 @@
+---
+title: "lab_07"
+author: "sean mussenden"
+date: "8/25/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## About this lab
+
+To complete this lab, you need to:
+* write code in empty codeblocks provided to answer questions included (look for **Q**).
+* write out the answer in the form of a complete sentence in the space given (look for **A**).
+
+When you are finished, commit changes and push to your personal GitHub repo, then submit the URL to this document on ELMS.
+
+## Load libraries and establish settings
+**Task**: Load rvest, janitor and the tidyverse
+```{r}
+# Turn off scientific notation
+options(scipen=999)
+
+# Load the tidyverse,rvest,janitor
+library(rvest)
+library(tidyverse)
+library(janitor)
+```
+
+
+Q1. How many individual cases has the U.S. Department of Justice filed against people accused of fraud related to the PPP or EIDL loan program, according to the DOJ website listing those cases: https://www.justice.gov/criminal-fraud/cares-act-fraud?  An example of one case that appears on this page is "U.S. v. Richard Ayvazyan et al". To answer this question, you will need to use rvest scrape the data on this single webpage into a dataframe that lists only case names. Hint: you will need to make use of html_elements() and html_text() -- a function that extracts text inside of an html tag -- for this.
+A1. There are 89 cases. 
+
+```{r}
+
+fraud_url<- "https://www.justice.gov/criminal-fraud/cares-act-fraud" %>%
+  read_html() %>%
+  html_elements("ul li b") %>%
+  html_text() 
+
+fraud_url
+
+```
+
+
+Q2. In how many individual judicial districts has the U.S. Department of Justice filed cases against people accused of fraud related to the PPP or EIDL loan program, according to the DOJ website listing those cases: https://www.justice.gov/criminal-fraud/cares-act-fraud?  Note: an example of a judicial district is "Southern District of Florida". You will need to use rvest scrape the data on this single webpage into a dataframe.
+A2. There are 28 cases. 
+
+```{r}
+
+fraud_url<- "https://www.justice.gov/criminal-fraud/cares-act-fraud" %>%
+  read_html() %>%
+  html_elements("i") %>%
+  html_text() %>%
+  data.frame()
+
+fraud_url
+
+```
+
+Q4. The website (https://www.justice.gov/criminal-fraud/cares-act-fraud) shows that the DOJ filed more cases in the Southern District of Florida than in any other district. One of those cases was filed against someone named "Diamond Blue Smith". Who is Smith, and what was he accused of, according to the criminal complaint? If you were an editor, would you have assigned a reporter to write a story about this case when the complaint was filed in court? Why or why not?
+A4. The complaint alleges that Smith and a partner in crime submitted at least 90 fraudulent PPP applications in an attempt to steal millions from the government. If I were an editor, I think I would assign a reporter to write a story about the case since there were so many fraudulent applications submitted. I'd be curious to see if this is unusual and if this case is just an example of PPP fraud in the South. I would be interested in seeing if Florida or the South had the most PPP fraud. 
+
+Q5. In what percentage of all judicial districts has the U.S. Department of Justice filed cases cases against people accused of fraud related to the PPP or EIDL loan program, according to the DOJ website listing those cases: https://www.justice.gov/criminal-fraud/cares-act-fraud? In answering this question, you should also produce a list of judicial districts where DOJ has NOT filed a case, according to this site.  
+
+Note: to answer this question, you will need to scrape a table of all district courts on this up-to-date Wikipedia page under the heading "Active Courts": https://en.wikipedia.org/wiki/List_of_United_States_district_and_territorial_courts  
+
+A5.
+
+
+```{r}
+
+doj_url <- "https://en.wikipedia.org/wiki/List_of_United_States_district_and_territorial_courts" %>%
+  read_html() %>%
+  html_table()
+
+all_district_court = doj_url[[3]]
+all_district_court = all_district_court %>% 
+  mutate(Region = tolower(str_squish(Region)))
+
+fraud_url<- "https://www.justice.gov/criminal-fraud/cares-act-fraud" %>%
+  read_html() %>%
+  html_elements("i") %>%
+  html_text() %>%
+  data.frame()
+
+fraud_url = fraud_url %>% 
+  rename(Region = ".") %>% 
+  mutate(was_filed = "yes") %>% 
+  mutate(Region = tolower(str_squish(Region)))
+
+
+courts_filed <- nrow(fraud_url)
+all_courts <- nrow(all_district_court)
+(courts_filed/ all_courts)*100
+
+
+#------
+
+test = left_join(all_district_court, fraud_url, by = "Region") 
+  
+test_group = test %>%  group_by(was_filed) %>% 
+  summarise(cases= n())
+  
+  
+
+
+
+```
+
+
+```{r}
+doj_url <- "https://en.wikipedia.org/wiki/List_of_United_States_district_and_territorial_courts" %>%
+  read_html() %>%
+  html_elements("thead tbody tr tfoot") %>%
+  html_text() 
+  
+doj_url
+
+
+```
+
+
+
+Q6. What might explain why, according to this site, the DOJ has filed PPP-related fraud cases in less than half of the country's judicial districts?
+A6.
+
+Q7. Which state had the most approved PPP loans per 100,000 population? [This web page](https://smussenden.github.io/coursefiles/ppp_scraping_example/index.html) has links to 52 individual web pages, one for each state (plus Washington, D.C. and Puerto Rico). Each of those web pages contains a one-row html table that has the name of the state, the number of approved loans, and the 2019 population. Here's an example for [Alabama](https://smussenden.github.io/coursefiles/ppp_scraping_example/states/alabama.html). You'll need to loop over the individual state urls, scrape each individual page and combine the information on each page into a single dataframe to answer this question.  
+A7.
+```{r}
+
+state_url <- "https://smussenden.github.io/coursefiles/ppp_scraping_example/index.html"
+
+state_links <- state_url %>%
+  read_html() %>%
+  html_table()
+
+
+```
