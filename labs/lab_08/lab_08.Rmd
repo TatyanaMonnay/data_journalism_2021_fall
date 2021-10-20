@@ -1,0 +1,181 @@
+---
+title: "lab_08"
+author: "derek willis"
+date: "8/26/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## You will need
+
+* A Census API key
+
+## Load libraries and establish settings
+
+You'll need to load two packages for this: the tidyverse and tidycensus.
+
+**Task** load these two packages
+
+```{r}
+# turn off sci notation
+options(scipen=999)
+library(tidyverse)
+# if needed, install tidycensus, then load it.
+# install.packages("tidycensus")
+library(tidycensus)
+```
+
+## Setup Census API
+
+You'll need your Census API Key:
+
+**Task** set your API Key
+
+```{r echo=FALSE}
+
+census_api_key("0a53a7462b879050ca5ae511611822015ba9a811", install=TRUE, overwrite = TRUE)
+
+readRenviron("~/.Renviron")
+
+
+```
+
+## Load and view ACS variables
+
+You'll also need to load the list of American Community Survey variables from the 2019 5-year estimates so you can identify the codes you need:
+
+**Task** load the variables from the 2019 5-year ACS and save them to a dataframe
+
+```{r}
+# Write code here to load the ACS variables
+
+acs5 <- load_variables(2019, "acs5", cache = TRUE)
+
+```
+
+## Load PPP data
+
+You'll also need to load an RDS file of PPP loan applications that were removed from the original data by lenders in July.
+
+**Task** read the RDS file and save it to a dataframe
+
+```{r}
+# Write code here to read the RDS file
+
+maryland_ppp <- read_rds("data/lab_08.rds")
+
+
+```
+
+## Answer questions
+
+**Q1** What is the Maryland jurisdiction with the lowest median age, according to the ACS 2019 5-year estimates? You will need to find the variable for median age first.
+**A1** Baltimore City has the lowest median age. 
+
+```{r}
+medage19 <- get_acs(geography = "county",
+                variables = c(medianage = "B01002_001"),
+                state = "MD", 
+                year = 2019)
+
+
+```
+
+**Q2** Which Maryland counties have a median age of at least 50?
+**A2** Worcester and Talbot counties have a median age of at least 50. 
+
+```{r}
+
+medage19 <- get_acs(geography = "county",
+                variables = c(medianage = "B01002_001"),
+                state = "MD", 
+                year = 2019)
+```
+
+**Q3** Which Maryland counties have the highest percentage of 5-17 year-olds that speak Spanish at home? 
+
+Start with the code you wrote for Q4 and add a second dataframe with the total population of 5-17 year-olds by county. For each dataframe, rename the `estimate` column to a meaningful name you've given the ACS variable, remove the `variable` columns in each using select and then join them based on GEOID and NAME. Then you can add a column to calculate the percentage of the total 5-17 population that speaks Spanish at home.
+
+**A3** Prince George's County, Montgomery County and Caroline County have the highest percentage of 5-17 year-olds that speak Spanish at home. 
+
+```{r}
+
+# variable is B16003_004
+
+spanish_speakers <- get_acs(geography = "county",
+                variables = "B16003_004",
+                state = "MD", 
+                year = 2019)
+
+total_kids <- get_acs(geography = "county",
+                variables = "B06001_003",
+                state = "MD", 
+                year = 2019)
+
+total_kids %>% 
+  inner_join(spanish_speakers, by=c("GEOID", "NAME")) %>% 
+  rename(estimate_speakers=estimate.y, estimate_population=estimate.x) %>% 
+  mutate(percent_speakers = estimate_speakers/estimate_population) %>% 
+  select(-variable.x, -variable.y) %>% 
+  arrange(desc(percent_speakers))
+
+```
+
+**Q4** Given the counties with the largest percentage of 5-17 year-olds that speak Spanish at home, what stands out to you about the data? How would you describe the top 5 counties? How would you describe Garrett County's numbers?
+**A4** I would describe Garrett county as having the lowest amount of Spanish speakers at home in the 5-17 age group. There could be up to 22 speakers in that It's interesting that PG county is so much larger than the other top contenders, is there a large Hispanic immigrant population in PG county? 
+
+**Q5** Which 5-digit zip code had the most removed PPP applications, and what is the percentage of Black population in that zip code according to the ACS? To answer this question, you will need to create separate dataframes with ACS data on total population by zip code and Black population by zip code. In each dataframe, rename the `estimate` column and remove the `variable` column. You'll need to combine the two dataframes in order to calculate the percentage, and then you can combine it with the PPP data. Remember: the PPP data may not have only 5-digit zip codes!
+
+**A5** The top zipcodes are 11236, 30349, 11203, 11226, 60620, 30331, 33311, 11233, 20019 and 11212. 
+
+```{r}
+#don't forget to clean PPP zip codes 
+
+maryland_ppp <- maryland_ppp %>%
+  mutate(zip5 = str_sub(zip, 1, 5))
+
+top_zips <- maryland_ppp %>%
+ group_by(zip5) %>%
+ summarise(total=sum(amount)) %>%
+ arrange(desc(total))
+
+#clean zip in question: 30097
+# total black population variable: B02001_003
+# total population variable: B01001F_001
+
+
+total_pop <- get_acs(geography = "zcta",
+                variables = "B01001F_001",
+                year = 2019)
+
+black_pop <- get_acs(geography = "zcta",
+                     variables = "B02001_003",
+                     year = 2019)
+
+total_pop %>% 
+  inner_join(black_pop, by=c("GEOID")) %>% 
+  rename(estimate_black_pop=estimate.y, estimate_total_pop=estimate.x) %>% 
+  select(-variable.x, -variable.y) %>% 
+  arrange(desc(estimate_black_pop))
+
+
+md_zips_with_acs <- top_zips %>% 
+  left_join(total_pop, by=c('zip5'='GEOID')) %>% 
+  
+            
+
+
+
+
+
+```
+
+**Q6** How would you describe to an editor the top 10 zip codes with the most removed application in terms of Black population? Where are they located, and what do they have in common? Are there any zip codes that seem different, and if so why?
+
+**A6** Most of these zip codes are from NYC and Brooklyn to be more specific. Other zip codes are from Fort Lauderdale and Chicago. 
+
+**Q7** What other columns from the PPP data could be useful in reporting on what happened to this removed loans?
+**A7** Other columns that could be helpful include amount and state to provide more context on the PPP loan. 
