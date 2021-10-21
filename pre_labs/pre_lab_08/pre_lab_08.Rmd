@@ -229,6 +229,7 @@ top_zips <- maryland_ppp %>%
  
 
 ```{r}
+
 md_zipcodes <- get_acs(geography="zcta", variables = "B19013_001", state='MD')
 md_zips_with_acs <- top_zips %>% left_join(md_zipcodes, by=c('zip5'='GEOID'))
 

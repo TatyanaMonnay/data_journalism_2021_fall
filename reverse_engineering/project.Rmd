@@ -1,0 +1,68 @@
+---
+title: "Reverse Engineering" 
+output: html_notebook
+---
+
+
+```{r}setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+
+# Turn off scientific notation
+options(scipen=999)
+# Load the tidyverse here
+library(tidyverse)
+
+# Load janitor here
+library(janitor)
+
+
+```
+
+
+Loading data set
+
+```{r}
+
+comic_characters <- read_csv("dc-wikia-data.csv")
+
+
+```
+
+There are more male villains than female characters all together. When women are on the screen, they are more likely to be a neutral character, rather than a villain or superhero.
+
+```{r}
+
+new_comic <- comic_characters %>% 
+  group_by(SEX,ALIGN) %>% 
+  select(-ALIVE, -`FIRST APPEARANCE`, -GSM, -urlslug, -ID) 
+  
+
+
+
+```
+
+
+Finding percent of female characters per alignment. 
+
+```{r}
+
+female_align <- new_comic %>% 
+  filter(SEX=="Female Characters") %>% 
+  group_by(ALIGN) %>% 
+  summarise(count_ALIGN =n()
+  )
+
+male_align <- new_comic %>% 
+  filter(SEX=="Male Characters") %>% 
+  group_by(ALIGN) %>% 
+  summarise(count_ALIGN =n()
+  )
+  
+
+
+
+```
+
