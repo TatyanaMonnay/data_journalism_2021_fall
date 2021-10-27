@@ -64,5 +64,8 @@ male_align <- new_comic %>%
 
 
 
+
+
+
 ```
 
