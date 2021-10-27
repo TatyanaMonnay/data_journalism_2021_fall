@@ -42,3 +42,4 @@ vignettes/*.pdf
 .DS_Store
 *.DS_Store
 pre_labs/pre_lab_05/data/ppp_loans_md-csv.csv
+pre_labs/pre_lab_09/data/ppp_loans_md.csv
