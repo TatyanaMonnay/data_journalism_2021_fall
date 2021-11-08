@@ -226,6 +226,8 @@ view(all_counties)
 
 #joining dfs 
 
+#join isn't working, tibble not showing second totals values and have no idea why
+
 all_counties  %>%  
   left_join(all_counties, kabbage_counties, by = c("project_county_name" = "project_state"))
 
