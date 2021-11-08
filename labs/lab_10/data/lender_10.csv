@@ -1,0 +1,572 @@
+state,lender,undisbursed_loans
+IL,"Harvest Small Business Finance, LLC",2379
+IL,"Capital Plus Financial, LLC",1938
+CA,"Harvest Small Business Finance, LLC",1713
+GA,"Harvest Small Business Finance, LLC",1536
+IL,"BSD Capital, LLC dba Lendistry",1418
+GA,Benworth Capital,1297
+IL,Benworth Capital,1261
+CA,"BSD Capital, LLC dba Lendistry",1162
+GA,"Capital Plus Financial, LLC",1142
+GA,"BSD Capital, LLC dba Lendistry",1114
+CA,Benworth Capital,1046
+TX,"Capital Plus Financial, LLC",1035
+GA,"Prestamos CDFI, LLC",1031
+CA,"Prestamos CDFI, LLC",1025
+TX,"Prestamos CDFI, LLC",1011
+FL,"Harvest Small Business Finance, LLC",998
+IL,"Prestamos CDFI, LLC",991
+CA,"Capital Plus Financial, LLC",932
+GA,Fountainhead SBF LLC,906
+IL,Itria Ventures LLC,880
+FL,Benworth Capital,740
+TX,Fountainhead SBF LLC,732
+TX,"BSD Capital, LLC dba Lendistry",700
+IL,Fountainhead SBF LLC,694
+TX,"Harvest Small Business Finance, LLC",690
+NY,"Harvest Small Business Finance, LLC",621
+TX,Benworth Capital,618
+MI,"Harvest Small Business Finance, LLC",577
+CA,Fountainhead SBF LLC,567
+FL,"BSD Capital, LLC dba Lendistry",558
+OH,"Harvest Small Business Finance, LLC",548
+LA,"Prestamos CDFI, LLC",544
+NY,Benworth Capital,495
+FL,"Capital Plus Financial, LLC",483
+FL,Fountainhead SBF LLC,468
+OH,Benworth Capital,452
+OH,"Capital Plus Financial, LLC",450
+LA,"Capital Plus Financial, LLC",440
+FL,"Prestamos CDFI, LLC",437
+MI,Benworth Capital,437
+NV,"Harvest Small Business Finance, LLC",435
+NY,"BSD Capital, LLC dba Lendistry",435
+GA,Itria Ventures LLC,416
+MI,"Prestamos CDFI, LLC",412
+PA,"Prestamos CDFI, LLC",388
+FL,"Kabbage, Inc.",382
+OH,"Prestamos CDFI, LLC",369
+MI,"Capital Plus Financial, LLC",361
+OH,"BSD Capital, LLC dba Lendistry",353
+NV,"Capital Plus Financial, LLC",349
+IN,"Harvest Small Business Finance, LLC",335
+LA,"Harvest Small Business Finance, LLC",331
+PA,"Harvest Small Business Finance, LLC",326
+LA,Benworth Capital,313
+FL,Itria Ventures LLC,310
+LA,"BSD Capital, LLC dba Lendistry",290
+NY,"Prestamos CDFI, LLC",288
+TN,Benworth Capital,285
+CA,Customers Bank,280
+MI,Fountainhead SBF LLC,272
+NY,"Capital Plus Financial, LLC",271
+TN,"Capital Plus Financial, LLC",271
+IN,Benworth Capital,266
+MI,"BSD Capital, LLC dba Lendistry",264
+PA,"BSD Capital, LLC dba Lendistry",264
+TN,"Harvest Small Business Finance, LLC",260
+TN,"Prestamos CDFI, LLC",259
+NV,Benworth Capital,257
+IN,"Capital Plus Financial, LLC",255
+TX,Itria Ventures LLC,255
+MS,Benworth Capital,253
+FL,"Square Capital, LLC",244
+TX,"Square Capital, LLC",241
+CA,"Bank of America, National Association",237
+TN,"BSD Capital, LLC dba Lendistry",237
+NV,"Prestamos CDFI, LLC",234
+OH,Fountainhead SBF LLC,229
+PR,Banco Popular de Puerto Rico,225
+CA,Itria Ventures LLC,224
+MO,"Harvest Small Business Finance, LLC",221
+TN,Fountainhead SBF LLC,221
+PA,Benworth Capital,216
+IN,"Prestamos CDFI, LLC",215
+IN,"BSD Capital, LLC dba Lendistry",213
+AL,"Harvest Small Business Finance, LLC",212
+NC,"Prestamos CDFI, LLC",210
+PA,"Capital Plus Financial, LLC",210
+SC,"Prestamos CDFI, LLC",206
+MS,"Harvest Small Business Finance, LLC",205
+FL,Customers Bank,203
+AL,"Prestamos CDFI, LLC",199
+AL,Benworth Capital,198
+CA,"Square Capital, LLC",197
+NV,"BSD Capital, LLC dba Lendistry",194
+NY,Fountainhead SBF LLC,193
+AZ,"Harvest Small Business Finance, LLC",191
+WI,"BSD Capital, LLC dba Lendistry",190
+SC,Benworth Capital,188
+AZ,"Capital Plus Financial, LLC",181
+AL,"BSD Capital, LLC dba Lendistry",179
+PA,Fountainhead SBF LLC,176
+SC,"Harvest Small Business Finance, LLC",175
+TX,Celtic Bank Corporation,175
+NC,"BSD Capital, LLC dba Lendistry",173
+AZ,"BSD Capital, LLC dba Lendistry",172
+LA,Fountainhead SBF LLC,172
+SC,"BSD Capital, LLC dba Lendistry",172
+NC,Benworth Capital,171
+AL,"Capital Plus Financial, LLC",167
+GA,"Kabbage, Inc.",167
+NC,"Harvest Small Business Finance, LLC",163
+NJ,"Harvest Small Business Finance, LLC",162
+MO,"BSD Capital, LLC dba Lendistry",161
+VA,Benworth Capital,161
+AZ,Benworth Capital,159
+MD,"BSD Capital, LLC dba Lendistry",159
+MD,"Harvest Small Business Finance, LLC",159
+AZ,"Prestamos CDFI, LLC",156
+MD,"Prestamos CDFI, LLC",154
+GA,Customers Bank,152
+WI,"Harvest Small Business Finance, LLC",152
+MO,Benworth Capital,149
+TX,Customers Bank,149
+WI,"Capital Plus Financial, LLC",148
+MD,Benworth Capital,146
+MS,"BSD Capital, LLC dba Lendistry",146
+MS,Fountainhead SBF LLC,143
+AL,Fountainhead SBF LLC,140
+VA,"Harvest Small Business Finance, LLC",140
+AR,Benworth Capital,139
+AR,"BSD Capital, LLC dba Lendistry",137
+IL,Customers Bank,137
+NY,Customers Bank,137
+IL,Cross River Bank,136
+NJ,Benworth Capital,136
+VA,"BSD Capital, LLC dba Lendistry",135
+WI,Benworth Capital,134
+MO,Fountainhead SBF LLC,133
+GA,Cross River Bank,131
+MS,"Capital Plus Financial, LLC",130
+SC,"Capital Plus Financial, LLC",130
+AZ,Fountainhead SBF LLC,129
+AR,"Harvest Small Business Finance, LLC",128
+MN,"Harvest Small Business Finance, LLC",128
+NY,"Kabbage, Inc.",128
+NJ,"BSD Capital, LLC dba Lendistry",127
+WI,"Prestamos CDFI, LLC",126
+IN,Fountainhead SBF LLC,121
+MS,"Prestamos CDFI, LLC",120
+IL,"Kabbage, Inc.",117
+SC,Fountainhead SBF LLC,116
+MO,"Capital Plus Financial, LLC",115
+NY,"JPMorgan Chase Bank, National Association",115
+NC,"Capital Plus Financial, LLC",114
+AR,"Capital Plus Financial, LLC",113
+NY,KeyBank National Association,111
+NJ,Fountainhead SBF LLC,105
+VA,"Prestamos CDFI, LLC",103
+NV,Fountainhead SBF LLC,96
+MD,"Capital Plus Financial, LLC",95
+WI,Fountainhead SBF LLC,91
+MA,"Harvest Small Business Finance, LLC",89
+NC,Customers Bank,87
+NC,Fountainhead SBF LLC,86
+TN,Itria Ventures LLC,86
+LA,Itria Ventures LLC,84
+NJ,"Capital Plus Financial, LLC",84
+NJ,"Prestamos CDFI, LLC",84
+AL,Itria Ventures LLC,83
+MD,Fountainhead SBF LLC,79
+MN,"BSD Capital, LLC dba Lendistry",78
+AR,People Trust,75
+AR,Arvest Bank,74
+VA,"Capital Plus Financial, LLC",73
+AR,"Prestamos CDFI, LLC",72
+OH,The Huntington National Bank,72
+PA,"Citizens Bank, National Association",72
+VA,Fountainhead SBF LLC,72
+LA,Customers Bank,70
+MN,"Capital Plus Financial, LLC",70
+MO,"Prestamos CDFI, LLC",70
+OH,KeyBank National Association,70
+MN,Benworth Capital,69
+OH,Itria Ventures LLC,69
+NJ,"TD Bank, National Association",67
+NC,Itria Ventures LLC,66
+MA,Benworth Capital,63
+TN,Customers Bank,62
+MA,"BSD Capital, LLC dba Lendistry",60
+MA,Eastern Bank,58
+AR,Fountainhead SBF LLC,57
+NC,"Square Capital, LLC",57
+MA,"Capital Plus Financial, LLC",56
+PR,FirstBank Puerto Rico,56
+TN,First Horizon Bank,56
+MI,Itria Ventures LLC,55
+MS,Itria Ventures LLC,55
+PA,Itria Ventures LLC,55
+MN,"Prestamos CDFI, LLC",53
+AL,Customers Bank,52
+MS,Community Bank of Mississippi,52
+PA,Customers Bank,50
+PA,KeyBank National Association,50
+DC,Benworth Capital,49
+DE,"Prestamos CDFI, LLC",49
+MA,"Citizens Bank, National Association",49
+TN,Hope Enterprise Corporation,49
+OH,Customers Bank,48
+IA,Benworth Capital,47
+MI,Customers Bank,47
+SC,Itria Ventures LLC,47
+CT,Benworth Capital,46
+CT,"Webster Bank, National Association",46
+NJ,Customers Bank,46
+MD,"Bank of America, National Association",45
+NC,Celtic Bank Corporation,45
+DC,"BSD Capital, LLC dba Lendistry",44
+KY,"Harvest Small Business Finance, LLC",44
+MA,Fountainhead SBF LLC,44
+MD,"Square Capital, LLC",44
+DC,"Prestamos CDFI, LLC",43
+CT,"People's United Bank, National Association",42
+IA,"Capital Plus Financial, LLC",42
+MI,The Huntington National Bank,42
+MS,BankPlus,42
+NJ,Itria Ventures LLC,42
+OK,"BSD Capital, LLC dba Lendistry",42
+CT,"Harvest Small Business Finance, LLC",41
+MA,"Bank of America, National Association",41
+OK,"Harvest Small Business Finance, LLC",41
+IA,"BSD Capital, LLC dba Lendistry",40
+IN,Itria Ventures LLC,40
+KY,"Capital Plus Financial, LLC",40
+MS,Customers Bank,40
+NV,Customers Bank,40
+NV,Itria Ventures LLC,40
+WA,"Square Capital, LLC",40
+AL,Regions Bank,38
+CO,Benworth Capital,38
+CO,"BSD Capital, LLC dba Lendistry",38
+CT,Fountainhead SBF LLC,38
+LA,"Square Capital, LLC",38
+MD,Celtic Bank Corporation,38
+OK,Benworth Capital,38
+VA,Customers Bank,38
+WA,Celtic Bank Corporation,38
+DC,"Harvest Small Business Finance, LLC",37
+IA,"Harvest Small Business Finance, LLC",37
+MA,"Prestamos CDFI, LLC",37
+MD,Customers Bank,37
+OK,Arvest Bank,37
+SC,"Kabbage, Inc.",37
+CO,"Harvest Small Business Finance, LLC",36
+MN,Fountainhead SBF LLC,36
+WA,KeyBank National Association,36
+AL,"Kabbage, Inc.",35
+SC,Customers Bank,35
+WA,"BSD Capital, LLC dba Lendistry",35
+WI,Itria Ventures LLC,35
+WA,"Prestamos CDFI, LLC",34
+CT,Itria Ventures LLC,33
+DE,Benworth Capital,33
+SC,"Square Capital, LLC",33
+VA,"Wells Fargo Bank, National Association",33
+CT,KeyBank National Association,32
+KY,Benworth Capital,32
+LA,State Bank & Trust Company,32
+NJ,"Bank of America, National Association",32
+OR,"Square Capital, LLC",32
+RI,"Citizens Bank, National Association",32
+AZ,"Square Capital, LLC",31
+CT,"BSD Capital, LLC dba Lendistry",31
+DE,"BSD Capital, LLC dba Lendistry",31
+KY,"BSD Capital, LLC dba Lendistry",31
+OK,BancFirst,31
+IN,Customers Bank,30
+OR,Celtic Bank Corporation,30
+VA,Truist Bank d/b/a Branch Banking & Trust Co,30
+WA,"Bank of America, National Association",30
+CT,"Capital Plus Financial, LLC",29
+KY,"Community Trust Bank, Inc.",29
+UT,"Zions Bank, A Division of",29
+VA,"Square Capital, LLC",29
+CT,"Prestamos CDFI, LLC",28
+KY,"Prestamos CDFI, LLC",28
+MI,"Kabbage, Inc.",28
+MN,"U.S. Bank, National Association",28
+WA,Benworth Capital,28
+WA,"U.S. Bank, National Association",28
+CO,"Capital Plus Financial, LLC",27
+MO,Itria Ventures LLC,27
+OK,First Security Bank and Trust Company,27
+OK,First United Bank and Trust Company,27
+AZ,"Bank of America, National Association",26
+MO,"Square Capital, LLC",26
+OK,"Prestamos CDFI, LLC",26
+PR,Oriental Bank,26
+CO,FirstBank,25
+CO,"Square Capital, LLC",25
+DE,"Capital Plus Financial, LLC",25
+IA,"Prestamos CDFI, LLC",25
+AZ,Celtic Bank Corporation,24
+AZ,Itria Ventures LLC,24
+MA,Rockland Trust Company,24
+OR,KeyBank National Association,24
+UT,Mountain America FCU,24
+DC,"Capital Plus Financial, LLC",23
+DE,"Harvest Small Business Finance, LLC",23
+IA,Itria Ventures LLC,23
+KS,"Harvest Small Business Finance, LLC",23
+NV,"Square Capital, LLC",23
+OR,OnPoint Community CU,23
+WA,"Capital Plus Financial, LLC",23
+CO,Fountainhead SBF LLC,22
+IA,Fountainhead SBF LLC,22
+KS,"BSD Capital, LLC dba Lendistry",22
+ME,Bangor Savings Bank,22
+MO,"Newtek Small Business Finance, Inc.",22
+WI,"Square Capital, LLC",22
+CO,"Prestamos CDFI, LLC",21
+HI,Central Pacific Bank,21
+KS,"INTRUST Bank, National Association",21
+KS,"Prestamos CDFI, LLC",21
+KS,Silver Lake Bank,21
+KY,"Square Capital, LLC",21
+IN,1st Source Bank,20
+IN,KeyBank National Association,20
+KY,Fountainhead SBF LLC,20
+KY,"South Central Bank, Inc.",20
+MO,"UMB Bank, National Association",20
+WA,Fountainhead SBF LLC,20
+CO,"BOKF, National Association",19
+NV,Celtic Bank Corporation,19
+OK,MidFirst Bank,19
+ID,Idaho Central CU,18
+KS,Benworth Capital,17
+KS,"Capital Plus Financial, LLC",17
+OR,Umpqua Bank,17
+RI,"Harvest Small Business Finance, LLC",17
+UT,"Square Capital, LLC",17
+ID,Celtic Bank Corporation,16
+OK,Fountainhead SBF LLC,16
+OR,"Capital Plus Financial, LLC",16
+WI,Customers Bank,16
+CO,Alpine Bank,15
+CO,KeyBank National Association,15
+ID,"Square Capital, LLC",15
+KS,Celtic Bank Corporation,15
+OR,"Harvest Small Business Finance, LLC",15
+WI,"Associated Bank, National Association",15
+AK,Northrim Bank,14
+DE,Fountainhead SBF LLC,14
+MN,Itria Ventures LLC,14
+NE,"BSD Capital, LLC dba Lendistry",14
+NM,"Square Capital, LLC",14
+RI,Benworth Capital,14
+UT,America First FCU,14
+UT,Celtic Bank Corporation,14
+AR,Itria Ventures LLC,13
+AR,"Square Capital, LLC",13
+KS,"Square Capital, LLC",13
+KY,Independence Bank of Kentucky,13
+NE,First National Bank of Omaha,13
+NE,Union Bank and Trust Company,13
+NM,First New Mexico Bank,13
+OR,"BSD Capital, LLC dba Lendistry",13
+RI,Fountainhead SBF LLC,13
+WV,"Premier Bank, Inc.",13
+WV,United Bank,13
+MT,Stockman Bank of Montana,12
+NE,"Prestamos CDFI, LLC",12
+OR,Benworth Capital,12
+OR,"U.S. Bank, National Association",12
+RI,"Prestamos CDFI, LLC",12
+UT,"BSD Capital, LLC dba Lendistry",12
+HI,Bank of Hawaii,11
+MN,Customers Bank,11
+ND,Bell Bank,11
+NE,Dundee Bank,11
+NM,"Prestamos CDFI, LLC",11
+DE,"Kabbage, Inc.",10
+KS,Meritrust FCU,10
+ME,"Square Capital, LLC",10
+MT,Glacier Bank,10
+ND,Gate City Bank,10
+NM,Celtic Bank Corporation,10
+NM,First American Bank,10
+WV,Fountainhead SBF LLC,10
+HI,First Hawaiian Bank,9
+MN,Sterling State Bank,9
+NE,Pinnacle Bank,9
+NH,"Square Capital, LLC",9
+NM,"Harvest Small Business Finance, LLC",9
+RI,"BSD Capital, LLC dba Lendistry",9
+RI,"Square Capital, LLC",9
+WV,Benworth Capital,9
+HI,"American Savings Bank, FSB",8
+IA,Bank Iowa,8
+ID,Glacier Bank,8
+ME,Celtic Bank Corporation,8
+ME,Deere Empl CU,8
+NE,Five Points Bank,8
+NH,"TD Bank, National Association",8
+NM,DreamSpring,8
+PR,"Cooperativa de Ahorro y Cr<ac,e>dito de Arecibo (COOPACA)",8
+RI,"Capital Plus Financial, LLC",8
+SD,First Dakota National Bank,8
+UT,Cache Valley Bank,8
+WV,City National Bank of West Virginia,8
+WV,"Harvest Small Business Finance, LLC",8
+DC,Fountainhead SBF LLC,7
+DE,Itria Ventures LLC,7
+IA,"Midstates Bank, National Association",7
+NE,West Gate Bank,7
+NM,Citizens Bank of Las Cruces,7
+NM,Nusenda FCU,7
+RI,BankNewport,7
+UT,KeyBank National Association,7
+UT,"Readycap Lending, LLC",7
+AK,Alaska USA FCU,6
+AK,"BSD Capital, LLC dba Lendistry",6
+AK,"Capital Plus Financial, LLC",6
+DE,"Square Capital, LLC",6
+IA,Farmers & Merchants Savings Bank,6
+IA,Two Rivers Bank & Trust,6
+ID,Capital Educators FCU,6
+ID,D. L. Evans Bank,6
+ID,"Zions Bank, A Division of",6
+ME,Machias Savings Bank,6
+MT,First Interstate Bank,6
+ND,"Harvest Small Business Finance, LLC",6
+NE,Benworth Capital,6
+NE,Commercial State Bank,6
+NE,"U.S. Bank, National Association",6
+NH,"Citizens Bank, National Association",6
+NM,Benworth Capital,6
+NM,Customers Bank,6
+NM,FirstLight FCU,6
+NM,"U.S. Bank, National Association",6
+NM,"Wells Fargo Bank, National Association",6
+RI,"Bank of America, National Association",6
+RI,Pawtucket CU,6
+SD,"BankWest, Inc",6
+UT,Goldenwest FCU,6
+WV,"WesBanco Bank, Inc.",6
+DC,"Square Capital, LLC",5
+DE,"Wells Fargo Bank, National Association",5
+HI,"Capital Plus Financial, LLC",5
+HI,"Prestamos CDFI, LLC",5
+HI,"Square Capital, LLC",5
+ID,KeyBank National Association,5
+ME,"TD Bank, National Association",5
+ND,"U.S. Bank, National Association",5
+NH,Celtic Bank Corporation,5
+NH,Eastern Bank,5
+SD,First Interstate Bank,5
+WV,"BSD Capital, LLC dba Lendistry",5
+WV,"Capital Plus Financial, LLC",5
+WV,"Clear Mountain Bank, Inc.",5
+AK,"Harvest Small Business Finance, LLC",4
+AK,Spirit of Alaska FCU,4
+DC,Celtic Bank Corporation,4
+DC,Congressional Bank,4
+GU,Coast360 FCU,4
+HI,"Harvest Small Business Finance, LLC",4
+ID,"A10Capital, LLC",4
+ID,"Harvest Small Business Finance, LLC",4
+ID,Potlatch No. 1 Financial Credit Union,4
+ME,Acadia FCU,4
+ME,Atlantic Regional FCU,4
+ME,cPort CU,4
+ME,Kennebunk Savings Bank,4
+ME,Maine Savings FCU,4
+ME,Skowhegan Savings Bank,4
+ND,"Alerus Financial, National Association",4
+ND,"Dakota Community Bank & Trust, National Association",4
+NH,Bangor Savings Bank,4
+NH,Ledyard National Bank,4
+NH,"People's United Bank, National Association",4
+NH,Service FCU,4
+NH,St. Mary's Bank,4
+NH,Triangle CU,4
+PR,"Cooperativa de Ahorro y Cr<ac,e>dito Oriental",4
+VI,FirstBank Puerto Rico,4
+VT,Community National Bank,4
+AK,Benworth Capital,3
+AK,KeyBank National Association,3
+DC,"Bank of America, National Association",3
+DC,EagleBank,3
+DC,"immito, LLC",3
+DC,"Kabbage, Inc.",3
+DC,"TD Bank, National Association",3
+HI,Benworth Capital,3
+HI,Celtic Bank Corporation,3
+MT,Benworth Capital,3
+MT,"BSD Capital, LLC dba Lendistry",3
+MT,Clearwater FCU,3
+MT,Montana Community Development Corp.,3
+MT,The Yellowstone Bank,3
+ND,Benworth Capital,3
+ND,"Bremer Bank, National Association",3
+ND,"Prestamos CDFI, LLC",3
+ND,Town and Country CU,3
+ND,United Savings CU,3
+SD,American Bank & Trust,3
+SD,Benworth Capital,3
+SD,Dacotah Bank,3
+SD,First Bank & Trust,3
+SD,Great Western Bank,3
+SD,"Prestamos CDFI, LLC",3
+VT,KeyBank National Association,3
+WY,"BSD Capital, LLC dba Lendistry",3
+WY,Glacier Bank,3
+WY,Pinnacle Bank-Wyoming,3
+AK,Celtic Bank Corporation,2
+AK,Denali State Bank,2
+AK,First Bank,2
+AK,First National Bank Alaska,2
+AK,Fountainhead SBF LLC,2
+AK,Itria Ventures LLC,2
+AK,Northern Skies FCU,2
+AK,"Square Capital, LLC",2
+AS,Territorial Bank of American Samoa,2
+GU,"ANZ Guam, Inc",2
+GU,Bank of Guam,2
+MT,Independence Bank,2
+MT,Opportunity Bank of Montana,2
+PR,"Cooperativa de Ahorro y Cr<ac,e>dito Dr. Manuel Zeno Gand<ac,i>a",2
+SD,Bank of the West,2
+SD,Black Hills FCU,2
+SD,"Capital Plus Financial, LLC",2
+SD,Cornerstone Bank,2
+SD,First Fidelity Bank,2
+SD,First National Bank,2
+SD,First PREMIER Bank,2
+SD,"Harvest Small Business Finance, LLC",2
+SD,Plains Commerce Bank,2
+SD,Quoin Financial Bank,2
+SD,The First National Bank in Sioux Falls,2
+VI,Banco Popular de Puerto Rico,2
+VT,New England FCU,2
+VT,New York Business Development Corporation,2
+VT,Northfield Savings Bank,2
+VT,Peoples Trust Company of St. Albans,2
+VT,Vermont FCU,2
+WY,Buffalo Federal Bank,2
+WY,First Interstate Bank,2
+WY,Platte Valley Bank,2
+WY,The Converse County Bank,2
+WY,Wyoming Community Bank,2
+MP,Bank of Guam,1
+PR,First Equity Mortgage Bankers Inc.,1
+PR,Itria Ventures LLC,1
+VI,Benworth Capital,1
+VT,"BSD Capital, LLC dba Lendistry",1
+VT,"People's United Bank, National Association",1
+WY,Cross River Bank,1
+WY,First Federal Bank & Trust,1
+WY,First Northern Bank of Wyoming,1
+WY,First State Bank,1
+WY,"Harvest Small Business Finance, LLC",1
+WY,Hilltop National Bank,1
+WY,Jonah Bank of Wyoming,1
+WY,"Kabbage, Inc.",1
+WY,NebraskaLand National Bank,1
+WY,"Prestamos CDFI, LLC",1
+WY,Security State Bank,1
+WY,Stockman Bank of Montana,1
+WY,The Enterprise Center Capital Corporation,1
+WY,"U.S. Bank, National Association",1
+WY,Uinta Bank,1
