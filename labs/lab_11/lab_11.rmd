@@ -58,7 +58,7 @@ Then answer these questions:
 * Based on the map, what region of the state appears to have gotten more loans in this industry? What geographic pattern do you notice in the data?
 * Based on the table, what county got the highest total loan amount? What was the total amount per 100K population, the total amount of loans (not population adjusted), how many loans were there, and what's the population?
 
-**A1.** 
+**A1.**             
 
 ```{r}
 
@@ -96,9 +96,10 @@ wv_pop <- wv_county_pop %>%
     
 #joining mining_ppp and wv_county_pop
 
+#update: this step and the following ran fine during class but now i can't get it to work!!! so frustrating :(
 
-mining_per_100k <- wv_pop %>% 
-  left_join(mining_loans, by="project_county_name", "total_loans", "total_loan_amount") 
+mining_per_100k <- mining_loans  %>% 
+  inner_join(wv_pop, by=c("project_county_name", "total_loans", "total_loan_amount"))  
 
 view(mining_per_100k)
   
@@ -147,5 +148,25 @@ What spatial pattern do you see? How does it compare to the spatial pattern in t
 * How many jobs did they save, according to the data?
 * What's your hypothesis for why a company in their specific industry would need to seek a PPP loan during the pandemic?
 
-**A4.**
+**A4.** 
+
+
+```{r}
+
+view (mining_loans) 
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
 -30-
