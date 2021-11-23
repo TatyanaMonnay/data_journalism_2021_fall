@@ -33,6 +33,22 @@ census_api_key("0a53a7462b879050ca5ae511611822015ba9a811", install=TRUE, overwri
  readRenviron("~/.Renviron")
 ```
 
+
+```{r echo=FALSE}
+
+
+install.packages("tidycensus")
+library(tidycensus)
+
+census_api_key("0a53a7462b879050ca5ae511611822015ba9a811", install=TRUE, overwrite = TRUE)
+readRenviron("~/.Renviron")
+
+
+
+
+```
+
+
 ## Questions
 
 **Q1.** You are interested in tracking vaccinations by age group, and in particular how many children are being vaccinated over time. You want to generate a sentence that describes the daily change in first daily dose among children between 5-11 years old, and also compares it to the most recent same day of the week, describing the change in percentage terms and the direction of the change.
@@ -109,7 +125,8 @@ Google the top 2-3 zip codes from both Maryland and non-Maryland results and des
 
 **A2.** 
 
-20433 is a zip code in DC
+20433 is a top zip code in DC, which is in the Foggy Bottom neighborhood. It's a cute neighborhood and has a good mix of things to do but is still quiet. There are tons of residents in this zip code because GW University's campus is here also. 20906 is an MD zipcode and it has the highest fully vaxxed population. Glendale is within the zip code lines. The area might have an extremely high vaccination rate because Kaiser Permeante Hospital is right on the outskirts and I think a significant chunk of this area's residents work in the hospital. 
+
 
 
 
@@ -137,7 +154,8 @@ dose_by_zip <- dose_by_zip %>%
 
 md_vax_by_zip <- dose_by_zip %>% 
   filter (zip_code > 20330) %>% 
-  filter (zip_code < 21929)
+  filter (zip_code < 21929) %>% 
+  
 
 
 
@@ -151,11 +169,26 @@ md_vax_by_zip <- dose_by_zip %>%
 
 **Q3.** Maryland has had one of the more successful vaccination rates, but you want to understand where a significant portion of the population remains less than fully vaccinated. Make a dataframe of all Maryland zip codes from the vaccination data you used in Q2 and join it to Maryland zip code population data from the Census API. Calculate the percentage of fully vaccinated for each zip code and then make a map showing the zip codes with less than 50 percent fully vaccinated. Put a blank map with the outline of Maryland counties (which you can get from Tigris) behind it for context. Add a label to the map describing what the data is and include the date from the vaccination data (programmatically, so you can run it every day).
 
-You WILL need to ensure that the columns you use to join the two dataframes are the same datatype and remember that join order matters.
+You WILL need to ensure that the columns you use to join the two dataframes are the same datatype and remember that join order matters. 
 
 Describe the output of the map below, and say what you think the most interesting areas are.
 
 **A3.**
 
 ```{r}
+
+#Making a dataframe of all Maryland zip codes from the vaccination data
+
+md_vax_by_zip <- dose_by_zip %>% 
+  filter (zip_code > 20330) %>% 
+  filter (zip_code < 21929)
+
+#loading Maryland zip code population data from the Census API
+
+md_zips <- get_acs(geography = "zcta", 
+                   variables ="B01003_001", 
+                   year = 2019)
+
+
+
 ```
