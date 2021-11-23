@@ -1,0 +1,63 @@
+---
+title: "Final data project"
+authors: tatyana monnay 
+output: html_notebook
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# Turn off scientific notation
+options(scipen=999)
+
+install.packages("ggrepel")
+library(tidyverse)
+library(janitor)
+library(lubridate)
+library(ggrepel)
+library(sf)
+
+```
+
+Loading data frames 
+
+```{r}
+
+#pulled data from 08/01/2018 to present day to give ourselves the chance to compare numbers from covid times to pre-covid times. 
+
+all_registrations <- read_csv("registrations.csv") %>%
+  clean_names()
+
+all_activity_reports <- read_csv("activity_reports.csv") %>%
+  clean_names()
+
+
+
+
+```
+Taking a peek at the data
+
+
+```{r}
+
+glimpse(all_activity_reports)
+
+#Rows: 10,000 and Columns: 19 from glimpse 
+
+glimpse(all_registrations)
+
+#Rows: 9,819 and Columns: 5 from glimpse
+
+#looking to see how many clients each registered lobbyist has had from 2018 to present day
+
+all_registrations %>% 
+  group_by(lobbyist_registrant) %>% 
+  summarise(total_lobbyists =n()) %>% 
+  arrange(desc(total_lobbyists))
+
+
+
+```
+
