@@ -37,6 +37,20 @@ all_activity_reports <- read_csv("activity_reports.csv") %>%
 
 
 ```
+Questions we want to answer: 
+
+What firm/org has hired the most lobbyists?
+
+Has the usual list of top firms/lobbyists changed?
+
+Which industry has the most active (most money spent) lobbying?
+
+What was the lobbying activity for the education industry for 2020 and 2021? How has it changed from 2018-2019 (pre-pandemic)?
+
+How did lobbying activity change from 2019 to 2021?
+
+
+
 Taking a peek at the data
 
 
@@ -61,3 +75,58 @@ all_registrations %>%
 
 ```
 
+
+
+Using this code block to answer these questions: 
+
+What firm/org has hired the most lobbyists?
+
+Has the usual list of top firms/lobbyists changed?
+
+```{r}
+
+#fyi: reporting period is nov 1 to april 30 and may 1 to october 31
+
+#trying to see how many lobbyists do firms in have and which firm has the highest total of lobbyists in 2018, 2019 and 2020
+
+all_registrations %>% 
+  group_by(organization_firm) %>% 
+  summarise(total_lobbyists = n()) %>% 
+  arrange(desc(total_lobbyists))
+
+#trying to see how many companies (employees) have hired lobbyist firms since 2018
+
+all_registrations %>% 
+  group_by(organization_firm) %>% 
+  summarise(total_employers = n()) %>% 
+  arrange(desc(total_employers))
+
+
+#trying to see how many firms and lobbyists each employer has and which employers have the most 
+
+#code is running but total lobbyists and firms are the same and not sure why
+
+all_registrations %>% 
+  group_by(employer) %>% 
+  summarise(total_lobbyists =n(),total_firms =n()) %>% 
+  arrange(desc(total_firms))
+
+
+
+
+#trying to see top lobbyists since 2018 
+
+all_registrations %>% 
+  group_by(lobbyist_registrant) %>% 
+  summarise (count =n()) %>% 
+  arrange(desc(count))
+
+#don't know how to go about filtering for a reporting period since the dates are in a range in the all_registrations data frame 
+
+
+
+```
+
+Analysis: 
+
+I've decided to expand the search to look at employers since that's newsworthy as well. Looking at the top lobbyist firms can provide insight about who is considered powerful in that industry. But, who hires those firms is extremely newsworthy because it provides insight into the biggest influences of state policy. Timothy Perry and Jonas Jacobson and Josh White are all partners of the same lobbying firm called Perry White Ross & Jacobson. Perry used to be a Senate staffer and White also has connections on the Hill. Jacobson has held multiple roles in state and local government in Maryland. Their firm is one of the top firms with the most lobbyists since 2018. 
