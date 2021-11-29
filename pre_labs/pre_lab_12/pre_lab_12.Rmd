@@ -53,7 +53,7 @@ We'll read it into a dataframe like usual and clean up the column names:
 
 ### Task 2: Read vaccination data into dataframe
 **Task** Run the following code and describe the dataframe
-**Answer**
+**Answer** The data frame has loaded and the typical output is below. The data frame popped up in another window. 
 
 ```{r}
 county_vaccinations_by_date <- read_csv("https://raw.githubusercontent.com/state-of-maryland/VaccineCSVs/master/MD_COVID19_TotalVaccinationsCountyFirstandSecondSingleDose.csv") %>%
@@ -75,7 +75,7 @@ county_vaccinations_by_date <- county_vaccinations_by_date %>%
 
 ### Task 4: Count the number of rows for each county
 **Task** Run the following code and describe the dataframe it produces. Is there anything unusual there?
-**Answer**
+**Answer** There is one county missing but it has a total #. 
 
 Let's see if there's anything unusual in the data by counting the number of rows for each county:
 
@@ -89,7 +89,7 @@ View(county_totals)
 
 ### Task 5: Examine the NA records
 **Task** Run the following code and describe the tibble it produces. What do you think this data represents?
-**Answer**
+**Answer** I'm not sure. I think the filter could be targeting the N/As in the dataframe? 
 
 There are totals for all of Maryland's jurisdictions, plus one for "Unknown" and one that's NA. All but the last one have roughly the same number of records. What's going on with the NA records?
 
@@ -127,16 +127,16 @@ What if we just ranked them? Where does this date rank? For that, we'll create a
 
 ### Task 8: Produce a dataframe for Prince George's County that ranks its days in terms of number of people fully vaccinated on each day
 **Task** Run the following code and describe the dataframe it produces. Is there a pattern for the most recent 7-10 days?
-**Answer**
+**Answer** I'm still seeing N/As in the data frame in the date column. I'm not sure I really see a pattern right now.    
 
 ```{r}
 ranked <- county_vaccinations_by_date %>%
   filter(county == "Prince George's") %>%
-  mutate(rank = min_rank(desc(fully_vaccinated))) %>%
-  arrange(desc(vaccination_date)) %>%
-  select(county, vaccination_date, fully_vaccinated, rank)
+  mutate(rank = min_rank(desc(fully_vaccinated))) %>% 
+  arrange(desc(vaccination_date)) %>% 
+  select(county, vaccination_date,  fully_vaccinated, rank) 
 
-View(ranked)
+View(ranked) 
 ```
 
 The most recent dates aren't among the highest-ranked, meaning that fewer people are getting fully vaccinated on a given day compared to previous dates.
@@ -146,9 +146,11 @@ Let's think about this a little more. What else could we do with this? What are 
 ### Task 8: Produce two dataframes, one for the most recent date and one for a week prior to that date, then calculate the percentage change between them
 **Task** Run the following code
 
+Getting an error at the mutate step
+
 ```{r}
 latest_date <- ranked %>% slice(1)
-one_week_ago <- ranked %>% filter(vaccination_date == latest_date$vaccination_date - 7)
+one_week_ago <- ranked %>% filter(vaccination_date == latest_date$vaccination_date - 7)  
 latest_date <- latest_date %>%
   mutate(pct_change_week = (fully_vaccinated - one_week_ago$fully_vaccinated)/one_week_ago$fully_vaccinated *100)
 ```
