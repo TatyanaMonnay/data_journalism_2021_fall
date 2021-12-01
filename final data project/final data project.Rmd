@@ -111,9 +111,6 @@ all_registrations %>%
   summarise(total_lobbyists =n(),total_firms =n()) %>% 
   arrange(desc(total_firms))
 
-
-
-
 #trying to see top lobbyists since 2018 
 
 all_registrations %>% 
@@ -123,7 +120,14 @@ all_registrations %>%
 
 #don't know how to go about filtering for a reporting period since the dates are in a range in the all_registrations data frame 
 
+#looking at registrations in period: 12/01/20-10/31/21  
 
+all_registrations %>% 
+  filter(registration_period == '12/01/20-10/31/21') %>% 
+  group_by (lobbyist_registrant) %>% 
+  summarise (count =n()) %>% 
+  arrange(desc(count))
+  
 
 ```
 
