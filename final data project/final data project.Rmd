@@ -86,6 +86,9 @@ Has the usual list of top firms/lobbyists changed?
 ```{r}
 
 #fyi: reporting period is nov 1 to april 30 and may 1 to october 31
+#rules for reporting: new and existing clients/employers/lobbyists? how are amendments handled in the data?
+#define interesting tidbits, what's interesting and what's not 
+#include links of interesting stories about MD lobbying 
 
 #trying to see how many lobbyists do firms in have and which firm has the highest total of lobbyists in 2018, 2019 and 2020
 
@@ -114,7 +117,7 @@ all_registrations %>%
 #trying to see top lobbyists since 2018 
 
 all_registrations %>% 
-  group_by(lobbyist_registrant) %>% 
+  group_by(lobbyist_registrant, registration_period, organization_firm) %>% 
   summarise (count =n()) %>% 
   arrange(desc(count))
 
@@ -123,10 +126,41 @@ all_registrations %>%
 #looking at registrations in period: 12/01/20-10/31/21  
 
 all_registrations %>% 
-  filter(registration_period == '12/01/20-10/31/21') %>% 
+  filter(registration_period == '12/01/20-10/31/21' & '11/19/21-10/31/22') %>% 
   group_by (lobbyist_registrant) %>% 
   summarise (count =n()) %>% 
-  arrange(desc(count))
+  arrange(desc(count)) 
+
+
+#looking to see how many lobbyists Perry White Ross & Jacobson and Rifkin Weiner Livingston LLC have
+
+all_registrations %>% 
+  group_by(registration_period, organization_firm) %>% 
+  summarise (count =n()) %>% 
+  arrange(desc(count)) 
+
+#string split to split registration_period into two different columns called registration_start and registration_end 
+
+#the registration period column would be more useful for me to split it into two different columns called registration_start and registration_end. the end date will be useful to have isolated so that i can use that to filter and grab all the updates from that registration period. the start date isn't consistent but the end date for registration_period is consistent and better for filtering
+
+cleaned_registrations <- all_registrations %>% 
+  mutate(new_column = str_split(registration_period, "-")) %>% 
+  rowwise() %>% 
+  mutate(registration_start = new_column[[1]], registration_end = new_column[[2]]) 
+
+#change data type of registration date columns. the data in the registration period columns is a character and not a number value, so i'll need to change that with code below
+
+cleaned_registrations %>% 
+  mutate(registration_start = as.numeric(registration_start), registration_end = as.numeric(registration_end))
+
+
+
+
+#try to plot month registration and explain why 
+
+
+
+
   
 
 ```
