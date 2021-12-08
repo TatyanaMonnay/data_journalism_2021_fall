@@ -85,8 +85,8 @@ Has the usual list of top firms/lobbyists changed?
 
 ```{r}
 
-#fyi: reporting period is nov 1 to april 30 and may 1 to october 31
-#rules for reporting: new and existing clients/employers/lobbyists? how are amendments handled in the data?
+#fyi: reporting period is nov 1 to april 30 and may 1 to october 31 
+#rules for reporting: new and existing  clients/employers/lobbyists? how are amendments handled in the data?
 #define interesting tidbits, what's interesting and what's not 
 #include links of interesting stories about MD lobbying 
 
@@ -123,13 +123,6 @@ all_registrations %>%
 
 #don't know how to go about filtering for a reporting period since the dates are in a range in the all_registrations data frame 
 
-#looking at registrations in period: 12/01/20-10/31/21  
-
-all_registrations %>% 
-  filter(registration_period == '12/01/20-10/31/21' & '11/19/21-10/31/22') %>% 
-  group_by (lobbyist_registrant) %>% 
-  summarise (count =n()) %>% 
-  arrange(desc(count)) 
 
 
 #looking to see how many lobbyists Perry White Ross & Jacobson and Rifkin Weiner Livingston LLC have
@@ -154,17 +147,50 @@ cleaned_registrations %>%
   mutate(registration_start = as.numeric(registration_start), registration_end = as.numeric(registration_end))
 
 
+#mutate to create month and day column, i.e. registration_end_month, registration_end_day
 
-
-#try to plot month registration and explain why 
-
-
-
-
+cleaned_registrations %>% 
   
+
+
+
+#looking at registrations in period: 12/01/20-10/31/21  
+
+cleaned_registrations %>% 
+  filter(registration_end == '10/31/21') %>% 
+  group_by (lobbyist_registrant, registration_end) %>% 
+  summarise (count =n()) %>% 
+  arrange(desc(count)) 
+
+
+#looking at registrations in period: 12/01/20-10/31/20  
+
+cleaned_registrations %>% 
+  filter(registration_end == '10/31/21') %>% 
+  group_by (lobbyist_registrant, registration_end) %>% 
+  summarise (count =n()) %>% 
+  arrange(desc(count)) 
+
+#looking at top employers in period: 12/01/20-10/31/20
+
+cleaned_registrations %>% 
+  filter(registration_end == '10/31/20') %>% 
+  group_by (employer, registration_end) %>% 
+  summarise (count =n()) %>% 
+  arrange(desc(count)) 
+
+#looking at top employers in period: 12/01/20-10/31/20
+
+cleaned_registrations %>% 
+  filter(registration_end_month == '10', registration_end_day == '31') %>% 
+  group_by (employer, registration_end) %>% 
+  summarise (count =n()) %>% 
+  arrange(desc(count)) 
 
 ```
 
 Analysis: 
 
 I've decided to expand the search to look at employers since that's newsworthy as well. Looking at the top lobbyist firms can provide insight about who is considered powerful in that industry. But, who hires those firms is extremely newsworthy because it provides insight into the biggest influences of state policy. Timothy Perry and Jonas Jacobson and Josh White are all partners of the same lobbying firm called Perry White Ross & Jacobson. Perry used to be a Senate staffer and White also has connections on the Hill. Jacobson has held multiple roles in state and local government in Maryland. Their firm is one of the top firms with the most lobbyists since 2018. 
+
+I think one of my biggest findings is that the top lobbyists belong to a handful of the same lobbying firm, which isn't entirely surprising. Similar aspects relevant in federal lobbying is prevalent in Maryland's lobbying data. Those with personal connections after working in Congress and the Maryland legislature are the most popular lobbyists. OpenSecrets' refers to this as the Revolving Door, where former staffers and political insiders leverage their work relationships in their lobbying endeavors.  
