@@ -35,13 +35,32 @@ library(sf)
 
 **A1.** 
 
-```{r}
+There are 191,988 applications filed for PPP in Indiana. According to TKTKTK Indiana's total population is TKTTKTKTKTK. 
 
+```{r}
 #loading data 
 
-in_ppp <- read_csv("data/in_ppp.rds")
+in_ppp <- read_rds("data/in_ppp.rds")
 
 view(in_ppp)
+
+#how many applications there are
+
+in_ppp %>% 
+  summarise (total_apps =n())
+  
+
+#cities with the most loans and highest loan amount 
+#tibble came back with various cities spelled in multiple fiellds so i'm going to have to clean city names to get an accurate total number of loans and current sum 
+
+in_ppp %>% 
+  group_by(city, amount) %>% 
+  summarise(total_loans =n(), total_loan_amount =sum(amount)) %>% 
+  arrange(desc(total_loan_amount))
+
+#cleaning city names and zip code columns
+
+
 
 
 
