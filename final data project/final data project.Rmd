@@ -141,17 +141,24 @@ cleaned_registrations <- all_registrations %>%
   rowwise() %>% 
   mutate(registration_start = new_column[[1]], registration_end = new_column[[2]]) 
 
+cleaned_registrations <- cleaned_registrations %>% 
+  mutate(new_column = str_split(registration_period, "-")) %>% 
+  rowwise() %>% 
+  mutate(registration_start = new_column[[1]], registration_end = new_column[[2]]) 
+
 #change data type of registration date columns. the data in the registration period columns is a character and not a number value, so i'll need to change that with code below
 
-cleaned_registrations %>% 
-  mutate(registration_start = as.numeric(registration_start), registration_end = as.numeric(registration_end))
+#cleaned_registrations <- cleaned_registrations %>% 
+ # mutate(registration_start = as.numeric(registration_start), registration_end = as.numeric(registration_end))
+
 
 
 #mutate to create month and day column, i.e. registration_end_month, registration_end_day
 
-cleaned_registrations %>% 
-  
+#cleaned_registrations %>% 
+ # mutate(registration_end_month = ymd (registration_end),registration_end_day = ymd(registration_end))
 
+view(cleaned_registrations)
 
 
 #looking at registrations in period: 12/01/20-10/31/21  
@@ -187,10 +194,70 @@ cleaned_registrations %>%
   summarise (count =n()) %>% 
   arrange(desc(count)) 
 
+
+#top lobbyists with their firm for 10/31/18
+
+cleaned_registrations %>% 
+  filter(registration_end == '10/31/18') %>% 
+  group_by (lobbyist_registrant, organization_firm, registration_end) %>% 
+  summarise (count =n()) %>% 
+  arrange(desc(count))
+
+#top lobbyists with their firm for 10/31/19
+
+cleaned_registrations %>% 
+  filter(registration_end == '10/31/19') %>% 
+  group_by (lobbyist_registrant, organization_firm, registration_end) %>% 
+  summarise (count =n()) %>% 
+  arrange(desc(count))
+
+#top lobbyists with their firm for 10/31/20
+
+cleaned_registrations %>% 
+  filter(registration_end == '10/31/20') %>% 
+  group_by (lobbyist_registrant, organization_firm, registration_end) %>% 
+  summarise (count =n()) %>% 
+  arrange(desc(count))
+
+#top lobbyists with their firm for 10/31/21
+
+cleaned_registrations %>% 
+  filter(registration_end == '10/31/21') %>% 
+  group_by (lobbyist_registrant, organization_firm, registration_end) %>% 
+  summarise (count =n()) %>% 
+  arrange(desc(count))
+
+#client list for Perry White Ross & Jacobson from 10/31/21
+
+cleaned_registrations %>% 
+  filter(organization_firm == 'Perry White Ross & Jacobson', registration_end == '10/31/21') %>% 
+  group_by (lobbyist_registrant, organization_firm, registration_end) %>% 
+  summarise (count =n()) %>% 
+  arrange(desc(count))
+
+cleaned_registrations %>% 
+  filter(organization_firm == 'Perry White Ross & Jacobson', registration_end == '10/31/20') %>% 
+  group_by (lobbyist_registrant, organization_firm, registration_end) %>% 
+  summarise (count =n()) %>% 
+  arrange(desc(count))
+
+cleaned_registrations %>% 
+  filter(organization_firm == 'Perry White Ross & Jacobson', registration_end == '10/31/19') %>% 
+  group_by (lobbyist_registrant, organization_firm, registration_end) %>% 
+  summarise (count =n()) %>% 
+  arrange(desc(count))
+
+
 ```
 
 Analysis: 
 
-I've decided to expand the search to look at employers since that's newsworthy as well. Looking at the top lobbyist firms can provide insight about who is considered powerful in that industry. But, who hires those firms is extremely newsworthy because it provides insight into the biggest influences of state policy. Timothy Perry and Jonas Jacobson and Josh White are all partners of the same lobbying firm called Perry White Ross & Jacobson. Perry used to be a Senate staffer and White also has connections on the Hill. Jacobson has held multiple roles in state and local government in Maryland. Their firm is one of the top firms with the most lobbyists since 2018. 
+I've decided to expand the search to look at employers since that's newsworthy as well. Looking at the top lobbyist firms can provide insight about who is considered powerful in that industry. But, who hires those firms is extremely newsworthy because it provides insight into the biggest influences of state policy. Timothy Perry and Jonas Jacobson and Josh White are all partners of the same lobbying firm called Perry White Ross & Jacobson. Perry used to be a Senate staffer and White also has connections on the Hill. Jacobson has held multiple roles in state and local government in Maryland. Their firm is one of the top firms with the most lobbyists since 2018. But they seemed to get a boost in clients and hired more lobbyists starting in 2020, which makes sense because of the pandemic. On their site, health care is the first industry they list as one of their specializations. 
 
-I think one of my biggest findings is that the top lobbyists belong to a handful of the same lobbying firm, which isn't entirely surprising. Similar aspects relevant in federal lobbying is prevalent in Maryland's lobbying data. Those with personal connections after working in Congress and the Maryland legislature are the most popular lobbyists. OpenSecrets' refers to this as the Revolving Door, where former staffers and political insiders leverage their work relationships in their lobbying endeavors.  
+I think one of my biggest findings is that the top lobbyists belong to a handful of the same lobbying firms, which isn't entirely surprising. Similar aspects relevant in federal lobbying are prevalent in Maryland's lobbying data. Those with personal connections after working in Congress and the Maryland legislature are the most popular lobbyists. OpenSecrets' refers to this as the Revolving Door, where former staffers and political insiders leverage their work relationships in their lobbying endeavors. 
+
+I did a lot of background research on state lobbying in the state and found interesting details/other context. The Daily Record reported(https://thedailyrecord.com/2021/01/18/ten-lobbyists-combine-for-more-than-15-million-in-billing-an-increase-vs-2019/) that Gerard "Gerry" Evans, who works for Evans & Associates, LLC,	 as part of the top 10 lobbyists by reported earnings in the state. But according to my queries, Evans ranks in at #19 for the number of clients for the year so far. On the flip side, John Reith ranks #2 in most clients since the most recent reporting cycle, but isn't in the same rank for the highest paid lobbyists reported by Biz Journals (https://www.bizjournals.com/baltimore/news/2019/10/10/highest-paid-lobbyists-in-maryland.html). At one point, a couple of the most popular lobbyists such as Evans and Bruce Bereano of Office of Bruce C. Bereano were banned from lobbying in the state, according to a 2016 Washington Post article (https://www.washingtonpost.com/local/md-politics/here-are-the-top-lobbyists-in-maryland-for-the-2016-legislative-session/2016/06/22/244e04dc-37ec-11e6-9ccd-d6005beac8b3_story.html). Bereano was convicted of mail fraud in 1994. He started his lobbying business in 1979, so it doesn't seem like his business was hurt by his legal time-out. Evans was convicted on multiple counts of mail and wire fraud in 2000. "He was accused of boosting his earnings by fabricating legislation that threatened his clients’ interests and then collecting fees to fight those nonexistent bills." Knowing this, it's extremely surprising that he is one of the top paid lobbyists and has some of the most clients this year. You would think that people wouldn't want to be associated with this type of behavior. 
+
+Another thing I noticed is that men outnumber women in the queries for lobbyists with the most clients. The most recent reporting period in 10/31/21 has the most women in the top 10. In this query, Lisa Jones, Camille G. Fesche, Andrea Mansfield were in the top 10. In the 10/31/20 query, Lisa Jones is the only woman and only Black person in the top 10. I think it would be interesting to do a deeper dive of the lack of diversity (gender and racial) in state lobbying industry and compare that to the federal lobbying industry. In the 10/31/2019 query, Alexandra Shull and Ann T. Ciekot were the only women in the top 10.
+
+I think it would be cool to dive deeper and see how many of the top lobbyists have criminal records and what kind of crimes these people are being accused of. Considering their backgrounds and professional/personal networks there might be some juicy details in those connections. 
