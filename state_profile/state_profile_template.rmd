@@ -25,6 +25,9 @@ library(janitor)
 library(lubridate)
 library(ggrepel)
 library(sf)
+library(tidycensus)
+library(tigris)
+options(tigris_use_cache = TRUE)
 
 ```
 
@@ -61,8 +64,30 @@ in_ppp %>%
 #cleaning city names and zip code columns
 
 
+cleaned_in_ppp <- in_ppp %>% 
+  clean_names() %>% 
+  mutate(zip5 = str_sub(zip, start=1L, end=5L)) %>% 
+  distinct () %>% 
+  mutate(city = str_to_title(city))
 
+view(cleaned_in_ppp)
 
+#trying again with cleaned data frame, but still have dupes
+
+cleaned_in_ppp %>% 
+  group_by(city, amount) %>% 
+  summarise(total_loans =n(), total_loan_amount =sum(amount)) %>% 
+  arrange(desc(total_loan_amount))
+
+#cleaning for dupe cities 
+
+cleaned_in_ppp %>% 
+  distinct()
+
+#cleaning zip code 
+
+cleaned_in_ppp <- cleaned_in_ppp %>% 
+    mutate(zip5 = str_sub(zip, start=1L, end=5L))  
 
 
 ```
@@ -74,6 +99,61 @@ in_ppp %>%
 **Q2.** Write R code that examines geographic patterns for PPP loans in your state, using Census population information to calculate a per-capita figure for the state and counties and zip codes. Then, make a county map using ggplot showing the per-capita data and a zip code map showing the difference from the statewide per-capita figure. Describe the most interesting or newsworthy findings based on your exploration.
 
 **A2.** 
+
+```{r echo=FALSE}
+
+#went back to add tidycensus library
+
+census_api_key("0a53a7462b879050ca5ae511611822015ba9a811", overwrite=TRUE, install=TRUE)
+
+readRenviron("~/.Renviron")
+
+```
+
+```{r}
+
+#cleaning zip code, tried separating this out, but it's not working - not sure why?? 
+
+in_geo <- cleaned_in_ppp %>% 
+  mutate(zip5 = str_sub(zip, start=1L, end=5L))  
+
+
+
+#making data frame with geo info, this isn't working, can't see why right now - will come back to it  
+in_geo <- cleaned_in_ppp %>% 
+  select(-originating_lender_city, -originating_lender_state, -originating_lender_location_id, -business_type, -business_age_description, -gender, -race, -veteran, -date_approved, -non_profit, -lender, -congressional_district, -loan_number, -loan_status, -sba_office_code, -sba_guaranty_percentage, -processing_method, -term, -ethnicity, -lmi_indicator, -forgiveness_amount, -forgiveness_date, -loan_status_date, -debt_interest_proceed, -health_care_proceed, -refinance_eidl_proceed, -rent_proceed, -mortgage_interest_proceed, -utilities_proceed, -hubzone_indicator)
+
+#making a map (or at least trying to)
+
+#went back to add tigris library 
+
+in_geo %>% 
+  ggplot() + 
+  aes(geometry = county) +
+  geom_sf(data=) + 
+  theme_minimal()
+
+#cleaning county names 
+
+in_geo <- in_geo %>% 
+  mutate(county = str_to_title(project_county_name))
+
+#population data for each county from tidycensus
+
+in_county_population <- get_acs(geography = "county", variables = c(population = "B01001_001"), 
+              state = "IN") 
+
+#renaming the "NAME" column to "COUNTY", then converting it to uppercase while also removing ", Maryland" and "County"
+            
+in_county_population <- in_county_population %>%
+  rename(COUNTY = NAME) %>%
+  mutate(COUNTY = toupper(str_remove_all(COUNTY,", Indiana|County"))) %>%
+  mutate(COUNTY = str_trim(COUNTY,side="both")) %>%
+  rename(population = estimate) 
+  
+
+```
+
 
 ## Lender Analysis
 
