@@ -19,7 +19,7 @@ The deliverable will be this R Markdown notebook and a data folder that you will
 
 ```{r}
 options(scipen=999)
-install.packages("ggrepel")
+#install.packages("ggrepel")
 library(tidyverse)
 library(janitor)
 library(lubridate)
@@ -38,16 +38,18 @@ options(tigris_use_cache = TRUE)
 
 **A1.** 
 
-There are 191,988 applications filed for PPP in Indiana. According to TKTKTK Indiana's total population is TKTTKTKTKTK. 
+There are 191,988 applications filed for PPP in Indiana. MARION had the most loans by quite a bit. Coming in next was LAKE, HAMILTON and ALLEN. Hamilton and Allen are extremely close in their numbers, they have a similar loan total and similar loan total amount. The minimum loan amount in the state was $81.25	for JOHNSON, and the largest loan for the county was $3,830,376.70. EFFINGHAM only received one loan for $8,442.00. The max loan amount was $10,000,000.00, which several counties such as ELKHART, HENRY, LAKE, MARION, POSEY, VANDERBURGH, and VIGO received. 
+
+
 
 ```{r}
 #loading data 
 
-in_ppp <- read_rds("data/in_ppp.rds")
+in_ppp <- read_rds("data/in_ppp.rds") 
+ 
+#view(in_ppp) 
 
-view(in_ppp)
-
-#how many applications there are
+#how many applications there are 
 
 in_ppp %>% 
   summarise (total_apps =n())
@@ -59,9 +61,9 @@ in_ppp %>%
 in_ppp %>% 
   group_by(city, amount) %>% 
   summarise(total_loans =n(), total_loan_amount =sum(amount)) %>% 
-  arrange(desc(total_loan_amount))
+  arrange(desc(total_loan_amount)) 
 
-#cleaning city names and zip code columns
+#cleaning city names and zip code columns 
 
 
 cleaned_in_ppp <- in_ppp %>% 
@@ -81,17 +83,28 @@ cleaned_in_ppp %>%
 
 #cleaning for dupe cities 
 
-cleaned_in_ppp %>% 
+cleaned_in_ppp <- cleaned_in_ppp %>% 
   distinct()
 
 #cleaning zip code 
 
 cleaned_in_ppp <- cleaned_in_ppp %>% 
-    mutate(zip5 = str_sub(zip, start=1L, end=5L))  
+    mutate(zip5 = str_sub(zip, start=1L, end=5L)) 
 
+cleaned_in_ppp %>% 
+  group_by(project_county_name) %>%
+  summarise(
+  total_loans = n(), total_loans_amount = sum(amount), mean_loan_amount = mean(amount),
+    median_loan_amount = median(amount),
+    min_loan_amount = min(amount),
+    max_loan_amount = max(amount)
+) %>% 
+  arrange(desc(max_loan_amount))
+      
 
 ```
 
+EFFINGHAM only received one loan for $8,442.00. The max loan amount was $10,000,000.00, which several counties such as ELKHART, HENRY, LAKE, MARION, POSEY, VANDERBURGH, and VIGO received. 
 
 
 ## Geographic Analysis
@@ -120,10 +133,17 @@ in_geo <- cleaned_in_ppp %>%
 
 
 #making data frame with geo info, this isn't working, can't see why right now - will come back to it  
+
+#this is working but realized i was doing select backwards/ doing more work than i should be 
 in_geo <- cleaned_in_ppp %>% 
   select(-originating_lender_city, -originating_lender_state, -originating_lender_location_id, -business_type, -business_age_description, -gender, -race, -veteran, -date_approved, -non_profit, -lender, -congressional_district, -loan_number, -loan_status, -sba_office_code, -sba_guaranty_percentage, -processing_method, -term, -ethnicity, -lmi_indicator, -forgiveness_amount, -forgiveness_date, -loan_status_date, -debt_interest_proceed, -health_care_proceed, -refinance_eidl_proceed, -rent_proceed, -mortgage_interest_proceed, -utilities_proceed, -hubzone_indicator)
 
-#making a map (or at least trying to)
+#trying again with select 
+
+in_geo_reduced <- in_geo %>% 
+  select(name, amount, project_county_name, zip5)
+
+#making a map (or at least trying to), nothing is popping up, not sure how to proceed
 
 #went back to add tigris library 
 
@@ -131,7 +151,7 @@ in_geo %>%
   ggplot() + 
   aes(geometry = county) +
   geom_sf(data=) + 
-  theme_minimal()
+  theme_minimal() 
 
 #cleaning county names 
 
@@ -141,7 +161,8 @@ in_geo <- in_geo %>%
 #population data for each county from tidycensus
 
 in_county_population <- get_acs(geography = "county", variables = c(population = "B01001_001"), 
-              state = "IN") 
+              state = "IN", 
+              geometry = TRUE) 
 
 #renaming the "NAME" column to "COUNTY", then converting it to uppercase while also removing ", Maryland" and "County"
             
@@ -150,30 +171,129 @@ in_county_population <- in_county_population %>%
   mutate(COUNTY = toupper(str_remove_all(COUNTY,", Indiana|County"))) %>%
   mutate(COUNTY = str_trim(COUNTY,side="both")) %>%
   rename(population = estimate) 
+
+# replace period with nothing
+ 
+in_county_population <- in_county_population %>% 
+  mutate(COUNTY = str_replace(COUNTY, "\\.", "" )) 
+
+#id loans by county
+
+#can i use info from the query below for answer #1?
+
+in_loans_by_county <- in_geo_reduced %>% 
+  group_by(project_county_name) %>% 
+  summarise(total_loan_amount =sum(amount),total_loans =n()) %>% 
+  arrange(desc(total_loans)) 
+
+in_loans_by_100k <- in_county_population %>%  
+  left_join(in_loans_by_county, by=c("COUNTY" = "project_county_name")) %>% 
+  mutate(loans_per_100k =total_loans/population*100000) %>% 
+  arrange(desc(loans_per_100k))
   
+  
+#graphing/mapping  
+
+ggplot() + 
+  geom_sf(data=in_loans_by_100k, aes(fill=loans_per_100k)) + 
+  theme_minimal() +
+  scale_fill_viridis_b(option="magma") 
+
+in_zips <- get_acs(geography = "zcta", variables = c(population = "B01001_001"), 
+              state = "IN", 
+              geometry = TRUE) 
+
+
+loans_by_zip <- in_geo_reduced %>% 
+  group_by(zip5) %>% 
+  summarise(total_loans =n()) %>% 
+  arrange(desc(total_loans)) 
+  
+
+in_loans_by_zip <- in_zips %>%  
+  left_join(loans_by_zip, by=c("GEOID" = "zip5")) %>% 
+  mutate(loans_per_10k =(total_loans/estimate)*10000) %>% 
+  arrange(desc(loans_per_10k))  
+
+
+ggplot() + 
+  geom_sf(data=in_loans_by_zip, aes(fill=loans_per_10k)) + 
+  theme_minimal() +
+  scale_fill_viridis_b(option="magma")
+
+
 
 ```
 
 
-## Lender Analysis
+## Lender Analysis 
 
-**Q3.** Write R code to examine which lenders had the most approved applications in your state (and include summary statistics such as total amount and average loan amount). Generate dataframes that show the number and total amount of all loans and undisbursed loans per lender. For those lenders who had any undisbursed loans, make a graphic showing the relationship between the total amount of loans and the total undisbursed amount. Describe the most noticeable outlier lenders on that graphic below.
+**Q3.** Write R code to examine which lenders had the most approved applications in your state (and include summary statistics such as total amount and average loan amount). Generate dataframes that show the number and total amount of all loans and undisbursed loans per lender. For those lenders who had any undisbursed loans, make a graphic showing the relationship between the total amount of loans and the total undisbursed amount. Describe the most noticeable outlier lenders on that graphic below. 
 
-**A3.** 
+**A3.** Datawrapper chart: https://datawrapper.dwcdn.net/i4Us8/1/
+
+The biggest outliers are the two first lenders: Capital Plus Financial, LLC and BSD Capital, LLC dba Lendistry. They had some of the largest total amounts along with the largest total_undisbursed amount. Interestingly, they had very similar total_undisbursed amounts. 
+
+```{r}
+
+undisbursed_in_loans <- cleaned_in_ppp %>% 
+  mutate(zip5 = str_sub(zip, start=1L, end=5L)) %>% 
+  select(name, amount, lender, undisbursed_amount, zip5, date_approved) %>% 
+  arrange(desc(undisbursed_amount)) 
+  
+
+undisbursed_lenders <- undisbursed_in_loans %>% 
+  group_by(lender) %>% 
+  summarise(total_undisbursed =sum(undisbursed_amount), total_amount =sum(amount), total_loans =n()) %>% 
+  arrange(desc(total_undisbursed)) 
+
+
+write_csv(undisbursed_lenders, "data/undisbursed_lenders.csv", append = FALSE)
+
+small_undisbursed <- undisbursed_lenders %>% 
+  head(10)
+ 
+write_csv(small_undisbursed, "data/small_undisbursed.csv", append = FALSE) 
+
+
+```
+
 
 
 ## Industry Analysis
 
-**Q4.** Write R code that examines industry patterns for PPP loans in your state, using the NAICS codes from the PPP data as a starting point. Generate statewide and county industry totals, then join that with 2018-19 data from the [Census County Business Patterns survey](https://www2.census.gov/programs-surveys/cbp/datasets/2019/cbp19co.zip) using 6-digit NAICS codes. The documentation explaining that data can be found here: https://www2.census.gov/programs-surveys/cbp/technical-documentation/records-layouts/2018_record_layouts/county-layout-2018.txt. To do this, you will need to add FIPS codes to your PPP dataset.
+**Q4.** Write R code that examines industry patterns for PPP loans in your state, using the NAICS codes from the PPP data as a starting point. Generate statewide and county industry totals, then join that with 2018-19 data from the [Census County Business Patterns survey](https://www2.census.gov/programs-surveys/cbp/datasets/2019/cbp19co.zip) using 6-digit NAICS codes. The  documentation explaining that data can be found here:  https://www2.census.gov/programs-surveys/cbp/technical-documentation/records-layouts/2018_record_layouts/county-layout-2018.txt. To do this, you will need to add FIPS codes to your PPP dataset.
 
 Does the distribution of PPP applications by the top 10 industries (by number of applications) roughly match the number of businesses reported in the Census data? Does it roughly match if you remove self-employed individuals and sole proprietorships from the PPP totals? Write up a summary of what you've found and whether there are potentially newsworthy patterns in the data.
 
-Create a county-level map showing the differences between the PPP applications and the Census business data for one of the top 10 industry codes. You can do this either using ggplot or Datawrapper (if the latter, publish that map and include the URL below).
+Create a county-level map showing the differences between the PPP applications and the Census business data for one of the top 10 industry codes. You can do this either using ggplot or Datawrapper (if the latter, publish that map and include the URL below). 
 
 **A4.** 
+
+```{r}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```
+
 
 ## Summary
 
 **Q5.** What is the most promising story idea that you have found during this exploration? How would you approach reporting it out and what other information/data would you need to do that? What would be the minimum story you could get from this, and what would be the maximum story?
 
 **A5.**
+
+I think it would be interesting to dive deeeper into TKTKTKTKTKTTK
