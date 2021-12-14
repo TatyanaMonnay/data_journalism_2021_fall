@@ -262,9 +262,9 @@ write_csv(small_undisbursed, "data/small_undisbursed.csv", append = FALSE)
 
 ## Industry Analysis
 
-**Q4.** Write R code that examines industry patterns for PPP loans in your state, using the NAICS codes from the PPP data as a starting point. Generate statewide and county industry totals, then join that with 2018-19 data from the [Census County Business Patterns survey](https://www2.census.gov/programs-surveys/cbp/datasets/2019/cbp19co.zip) using 6-digit NAICS codes. The  documentation explaining that data can be found here:  https://www2.census.gov/programs-surveys/cbp/technical-documentation/records-layouts/2018_record_layouts/county-layout-2018.txt. To do this, you will need to add FIPS codes to your PPP dataset.
+**Q4.** Write R code that examines industry patterns for PPP loans in your state, using the NAICS codes from the PPP data as a starting point. Generate statewide and county industry totals, then join that with 2018-19 data from the [Census County Business Patterns survey](https://www2.census.gov/programs-surveys/cbp/datasets/2019/cbp19co.zip) using 6-digit NAICS codes. The documentation explaining that data can be found here:  https://www2.census.gov/programs-surveys/cbp/technical-documentation/records-layouts/2018_record_layouts/county-layout-2018.txt. To do this, you will need to add FIPS codes to your PPP dataset. 
 
-Does the distribution of PPP applications by the top 10 industries (by number of applications) roughly match the number of businesses reported in the Census data? Does it roughly match if you remove self-employed individuals and sole proprietorships from the PPP totals? Write up a summary of what you've found and whether there are potentially newsworthy patterns in the data.
+Does the distribution of PPP applications by the top 10 industries (by number of applications) roughly match the number of businesses reported in the Census data? Does it roughly match if you remove self-employed individuals and sole proprietorships from the PPP totals? Write up a summary of what you've found and whether there are potentially newsworthy patterns in the data.  
 
 Create a county-level map showing the differences between the PPP applications and the Census business data for one of the top 10 industry codes. You can do this either using ggplot or Datawrapper (if the latter, publish that map and include the URL below). 
 
@@ -272,13 +272,40 @@ Create a county-level map showing the differences between the PPP applications a
 
 ```{r}
 
+naics_codes <- read_csv("data/naics_codes.csv") 
+
+county_fips <- read_csv("data/county_fips.csv") 
+
+#cleaning county names and filtering for indiana
+
+county_fips <- county_fips %>% 
+  filter(state == "IN") %>% 
+  mutate(county = str_to_title(str_remove_all(county,", Indiana|County"))) %>%
+  mutate(county = str_trim(county,side="both")) 
+  
+
+in_naics <- in_geo %>% 
+  left_join(naics_code, by=c('naics_code')) #%>% 
+  #select(name, amount, naics_code, title, project_county_name)
 
 
 
+in_industry <- in_naics %>% 
+  group_by(project_county_name, naics_code) %>% 
+  summarise (total_loans = n()) %>% 
+  arrange(desc(total_loans))
 
 
+in_naics %>% 
+  group_by(project_county_name) %>% 
+  summarise (total_loans = n()) %>% 
+  arrange(desc(total_loans)) 
 
 
+#adding FIPS codes to PPP dataset
+
+in_naics_and_fips <- in_naics %>% 
+  left_join(naics_code, by=c('naics_code')) %>%  
 
 
 
@@ -292,7 +319,7 @@ Create a county-level map showing the differences between the PPP applications a
 
 ## Summary
 
-**Q5.** What is the most promising story idea that you have found during this exploration? How would you approach reporting it out and what other information/data would you need to do that? What would be the minimum story you could get from this, and what would be the maximum story?
+**Q5.** What is the most promising story idea that you have found during this exploration? How would you approach reporting it out and what other information/data would you need to do that? What would be the minimum story you could get from this, and what would be the maximum story? 
 
 **A5.**
 
