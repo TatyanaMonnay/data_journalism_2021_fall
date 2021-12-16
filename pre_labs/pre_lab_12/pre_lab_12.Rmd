@@ -146,7 +146,6 @@ Let's think about this a little more. What else could we do with this? What are 
 ### Task 8: Produce two dataframes, one for the most recent date and one for a week prior to that date, then calculate the percentage change between them
 **Task** Run the following code
 
-Getting an error at the mutate step
 
 ```{r}
 latest_date <- ranked %>% slice(1)
@@ -163,7 +162,7 @@ More than numbers, we are going to want to see this data so we can spot potentia
 
 ### Task 9: Make a simple bar chart
 **Task** Run the following code and describe what the chart is showing. What is the trend in the data?
-**Answer**
+**Answer** It seems like vaccinations spiked after April 2021 in the summer. The chart is showing the evolution of vaccinations from Jan 2021 to Oct 2021. 
 
 ```{r fig.width=9}
 ggplot() +
@@ -224,7 +223,7 @@ Now we're going to use a function called paste to merge some text together. We'r
 
 ### Task 12: Produce a description for your bar chart based on the variables in Task 11
 **Task** Run the following code and put the value of `sub` in the answer.
-**Answer**
+**Answer** "The number of people in Prince George's County fully vaccinated on December 02 NA by NA percent compared to the week before"
 
 ```{r}
 sub <- paste("The number of people in Prince George's County fully vaccinated on ", format(latest_date$vaccination_date, format="%B %d"), " ", direction, " by ", changetext, " percent compared to the week before", sep="")
@@ -233,7 +232,7 @@ sub
 
 ### Task 13: Produce a description for your bar chart based on the variables in Task 11
 **Task** Run the following code and put the value of `sub` in the answer.
-**Answer**
+**Answer** "The number of people in Prince George's County fully vaccinated on December 02 NA by NA percent compared to the week before"
 
 Now we can add that to our labels.
 
@@ -284,7 +283,7 @@ Let's filter out Maryland first and create a line chart:
 
 ### Task 15: Filter on Maryland and create a line chart
 **Task** Run the following code and describe what the resulting chart shows
-**Answer**
+**Answer** The chart shows the number of positive covid cases in each MD county. 
 
 ```{r}
 maryland <- covid %>% filter(state == "Maryland")
@@ -296,7 +295,7 @@ The colors can be a little hard to make out, but when you have counties with a l
 
 ### Task 16: Switch the line chart to use a log scale
 **Task** Run the following code and describe what the resulting chart shows
-**Answer**
+**Answer** Same chart as above but the y-axis values have changed and I don't really understand what they mean such as 1e+05 and 1e+03. 
 
 ```{r}
 ggplot() + geom_line(data=maryland, aes(x=date, y=cases, group=county, color=county)) + scale_y_continuous(trans="log10")
@@ -312,7 +311,7 @@ I'm adding one piece to the end to make joining this to a map easier and just re
 
 ### Task 17: Find the latest data for Maryland and join it to a shapefile of U.S. counties
 **Task** Run the following code. How many rows in the counties dataframe?
-**Answer**
+**Answer** Getting an error here and can't continue. 
 
 ```{r}
 current <- maryland %>% summarize(max(date))
