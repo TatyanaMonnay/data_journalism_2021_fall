@@ -39,7 +39,7 @@ readRenviron("~/.Renviron")
 
 ```{r}
 
-wv_ppp <- readRDS("data/lab_11.rds")
+wv_ppp <- readRDS("lab_11.rds")
 
 
 ```
@@ -58,7 +58,7 @@ Then answer these questions:
 * Based on the map, what region of the state appears to have gotten more loans in this industry? What geographic pattern do you notice in the data?
 * Based on the table, what county got the highest total loan amount? What was the total amount per 100K population, the total amount of loans (not population adjusted), how many loans were there, and what's the population?
 
-**A1.**             
+**A1.** Ritchie County has the highest total loan amount at 77,752,742.79
 
 ```{r}
 
@@ -67,12 +67,12 @@ Then answer these questions:
 mining_ppp <- wv_ppp %>% 
   mutate(naics_code2 = str_sub(naics_code, start=1L, end=2L)) %>% 
   filter(naics_code2 == "21") 
-
+ 
 view(wv_ppp)
-
+ 
   
-#finding total loans and count of loans per WV county
-
+#finding total loans and count of loans per WV county 
+ 
 mining_loans <- mining_ppp %>% 
   group_by (project_county_name) %>% 
   summarise(total_loans = n (), total_loan_amount = sum(amount)) %>% 
@@ -85,13 +85,19 @@ wv_county_pop <- get_acs(geography = "county",
               variables = c(population = "B01001_001"), 
               state = "WV", 
               geometry = TRUE)
-
+ 
 view(wv_county_pop)
+ 
+wv_pop <- wv_pop %>% 
+  summarise(total_loans = n (), total_loan_amount = sum(amount)) %>% 
+  arrange(desc(total_loans))
 
 #cleaning population df name column to facilitate join 
 
 wv_pop <- wv_county_pop %>% 
   mutate(project_county_name = str_replace_all(NAME, " County, West Virginia", "")) 
+
+
 
     
 #joining mining_ppp and wv_county_pop
@@ -111,12 +117,9 @@ mining_per_100k %>%
 #making map from mining per 100k df 
 
 ggplot() + 
-  geom_sf(data=wv_pop, aes(fill=miining_per_100k)) + 
+  geom_sf(data=mining_per_100k, aes(fill=amount_per_100k)) + 
   theme_minimal() +
-  scale_fill_viridis_b(option="magma") 
-
-
-
+  scale_fill_viridis_b(option="magma",trans = "log") 
 
 
 ```
@@ -130,17 +133,42 @@ Here's the url: https://tagis.dep.wv.gov/arcgis/rest/services/WVDEP_enterprise/m
 
 (It's in a slightly different format than the .shp file in the lab. It's another type of shapefile called "geojson".  It will work just the same, though, despite that difference. You can read it directly into R without manually downloading it, by putting the url in the st_read() function we learned about in this week's prelab.) 
 
-This data includes both currently operating mines and old ones that have closed.  You want to examine only mines that have a permit expiration date after Sept. 1, 2021. 
+This data includes both currently operating mines and old ones that have closed. You want to examine only mines that have a permit expiration date after Sept. 1, 2021. 
 
 Make a map with a point for each one of these mine permits and put a blank map with the outline of West Virginia counties (which you can get from Tigris) behind it. 
 
 What spatial pattern do you see? How does it compare to the spatial pattern in the first map you made?
 
-**A2.**
+**A2.** Permits seem to be concentrated in the lower half of the state. It doesn't look much different than the first map. 
+
+```{r}
+
+mine_permits <- st_read("https://tagis.dep.wv.gov/arcgis/rest/services/WVDEP_enterprise/mining_reclamation/MapServer/0/query?where=1%3D1&outFields=*&geometry=&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&outSR=4326&f=json")
+
+mine_permits<- mine_permits %>% 
+  mutate(expire_date_new = ymd(expiredate))
+
+mine_permits_now<- mine_permits %>% 
+  filter(expire_date_new >= as_date("2021-09-01"))
+
+mine_permits_now %>%
+  ggplot() + 
+  geom_sf() + 
+  theme_minimal()
+
+
+
+ggplot() + 
+  geom_sf(data=wv_pop) + 
+  geom_sf(data=mine_permits_now) +
+  theme_minimal()
+
+
+```
 
 **Q3.** To confirm the spatial comparison you identified in question 2, let's create a new map that layers the mine location points on top of our PPP choropleth map we created in question 1. What do you notice about the amount of mines in the county that has the highest total loan amount per 100K?
 
-**A3.**
+**A3.** The second map looks almost identical to the original. Counties with the most permits in the lover left side of the state include Logan, Wyoming, McDowell, and Mingo. 
 
 **Q4.** Starting from the original WV ppp dataframe, examine the loans to companies in "Mining, Quarrying, and Oil and Gas Extraction" in the county with the highest total loan amount per 100K (you can use the table you created in question 1 to identify the top county)?
 * What single company accounts for the biggest chunk of the total loan amount? 
@@ -148,13 +176,15 @@ What spatial pattern do you see? How does it compare to the spatial pattern in t
 * How many jobs did they save, according to the data?
 * What's your hypothesis for why a company in their specific industry would need to seek a PPP loan during the pandemic?
 
-**A4.** 
+**A4.** HALL DRILLING, LLC has the largest loan in Ritchie county at $6,866,600. They are in the Drilling Oil and Gas Wells industry (213111). Its services include trucking, drilling, production installation and construction. HALL DRILLING, LLC saved 387 jobs because of the loans. I think a business in this industry would apply for a PPP loan because their corporate clients stalled any businesses and cut into HALL DRILLING, LLC's cash flow.    
 
 
 ```{r}
 
-view (mining_loans) 
-
+wv_ppp %>% 
+  filter(str_detect(naics_code, "^21"), project_county_name == "RITCHIE") %>% 
+  arrange(desc(amount)) %>% 
+  head(1) 
 
 ```
 
