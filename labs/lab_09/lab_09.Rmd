@@ -190,7 +190,7 @@ loan_forgiven <- wv_ppp_loans %>%
 loan_forgiven %>% 
   ggplot() +
   geom_point(aes(x = amount, y = forgiveness_amount)) +
-  labs(title = "Forgiven Loan Amounts Per Loan Amount in West Virginia", x = "Loan Amount", y = "Forgiveness Amount", caption = "Source: Small Business Administration")
+  labs(title = "Forgiven Loan Amounts Per Loan Amount in West Virginia", x = "Loan Amount", y = "Forgiveness Amount")
 
 
 
