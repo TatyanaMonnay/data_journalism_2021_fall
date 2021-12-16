@@ -97,7 +97,7 @@ wv_ppp_april %>%
 ```{r}
 knitr::include_graphics(rep("images/chart_1.png"))
 ```
-**A1.** 2020-04-28 saw the most loan appr
+**A1.** 2020-04-28 saw the most loan approved loans. 
 
 **Q2.** What are the top 10 states that got the most PPP loans per 100,000 people? You MUST do the following things when answering this question:
 
@@ -175,7 +175,31 @@ To answer those questions, make a codeblock and do the following:
 4. Make a scatterplot. I didn't show you how to do this, so look it up! 
 5. In the answer space below, describe what you see and answer the questions posed above.  In a general sense, what do you think this means?  
 
-**A3.**  
+**A3.**  It seems like a good amount of business got its loans forgiven. 
+
+```{r}
+
+loan_forgiven <- wv_ppp_loans %>% 
+  filter(amount < 25000) %>%
+  filter(!is.na(amount)) %>% 
+  select(amount, forgiveness_amount)
+
+
+
+
+loan_forgiven %>% 
+  ggplot() +
+  geom_point(aes(x = amount, y = forgiveness_amount)) +
+  labs(title = "Forgiven Loan Amounts Per Loan Amount in West Virginia", x = "Loan Amount", y = "Forgiveness Amount", caption = "Source: Small Business Administration")
+
+
+
+
+
+
+
+
+```
 
 
 -30-
